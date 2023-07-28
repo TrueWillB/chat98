@@ -1,11 +1,14 @@
 import React from "react";
 
-// const friendsList = () => {
-//   return (
-//     <friendsList>
-//       <p>Text</p>
-//     </friendsList>
-//   );
-// };
+// Madeline! add dropdowns from toolbar here
+
+/*const friendsList = () => {
+  return (
+    <friendsList>
+      <p>Text</p>
+    </friendsList>
+  );
+};
+*/
 
 export default friendsList;
