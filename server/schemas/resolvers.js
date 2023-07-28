@@ -5,10 +5,12 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     users: async () => {
-      return await User.find().populate("friends");
+      return await User.find().populate("friends").populate("pendingFriends");
     },
     user: async (parent, { username }, context) => {
-      return await User.findOne({ username }).populate("friends");
+      return await User.findOne({ username })
+        .populate("friends")
+        .populate("pendingFriends");
     },
     userChats: async (parent, { username }, context) => {
       return await Chat.find({
@@ -60,7 +62,9 @@ const resolvers = {
         { username },
         { $addToSet: { pendingFriends: newFriend._id } }
       );
-      const updatedUser = await User.findOne({ username }).populate("friends");
+      const updatedUser = await User.findOne({ username })
+        .populate("friends")
+        .populate("pendingFriends");
       return updatedUser;
     },
     removeFriend: async (parent, { username, friendId }, context) => {
