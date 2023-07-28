@@ -49,6 +49,20 @@ const resolvers = {
 
       return { token, user };
     },
+    addFriend: async (parent, { username, friendUsername }, context) => {
+      const user = await User.findOne({ username });
+      const newFriend = await User.findOne({ username: friendUsername });
+
+      if (!user || !newFriend) {
+        throw new Error("Friend not found!");
+      }
+      await User.updateOne(
+        { username },
+        { $addToSet: { friends: newFriend._id } }
+      );
+      const updatedUser = await User.findOne({ username }).populate("friends");
+      return updatedUser;
+    },
   },
 };
 
