@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Chat, Message } = require("../models");
-// const { signToken } = require("../utils/auth");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -58,10 +58,25 @@ const resolvers = {
       }
       await User.updateOne(
         { username },
-        { $addToSet: { friends: newFriend._id } }
+        { $addToSet: { pendingFriends: newFriend._id } }
       );
       const updatedUser = await User.findOne({ username }).populate("friends");
       return updatedUser;
+    },
+    removeFriend: async (parent, { username, friendId }, context) => {
+      try {
+        const updatedUser = await User.findOneAndDelete(
+          { username },
+          { $pull: { friends: { _id: friendId } } },
+          { new: true }
+        );
+        if (!updatedUser) {
+          throw new Error("Friend not found!");
+        }
+        return updatedUser;
+      } catch (err) {
+        throw err;
+      }
     },
   },
 };
