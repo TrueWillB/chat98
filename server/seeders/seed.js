@@ -12,6 +12,6 @@ db.once("open", async () => {
     process.exit(1);
   }
 
-  console.log("seeding done!");
+  console.log("seeding done! 🌱");
   process.exit(0);
 });
