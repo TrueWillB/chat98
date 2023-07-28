@@ -11,6 +11,11 @@ export const QUERY_USERS = gql`
         username
         email
       }
+      pendingFriends {
+        _id
+        username
+        email
+      }
     }
   }
 `;
@@ -22,6 +27,11 @@ export const QUERY_USER = gql`
       username
       email
       friends {
+        _id
+        username
+        email
+      }
+      pendingFriends {
         _id
         username
         email
