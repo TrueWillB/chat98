@@ -12,20 +12,23 @@ const resolvers = {
         .populate("friends")
         .populate("pendingFriends");
     },
-    userChats: async (parent, { username }, context) => {
-      return await Chat.find({
-        $or: [{ user1Id: User }, { user2Id: User }],
-      }).populate({
-        path: "messages",
-        populate: { path: "sender" },
-      });
+    //come back and refactor with context
+    userChats: async (parent, { userId }, context) => {
+      try {
+        const chats = await Chat.find({
+          $or: [{ user1Id: userId }, { user2Id: userId }],
+        }).populate("messages");
+        return chats;
+      } catch (err) {
+        throw err;
+      }
     },
-    chat: async (parent, { chatId }, context) => {
-      return await Chat.findById(chatId).populate({
-        path: "messages",
-        populate: { path: "sender" },
-      });
-    },
+    // chat: async (parent, { chatId }, context) => {
+    //   return await Chat.findById(chatId).populate({
+    //     path: "messages",
+    //     populate: { path: "sender" },
+    //   });
+    // },
   },
 
   Mutation: {
@@ -128,6 +131,46 @@ const resolvers = {
         throw err;
       }
     },
+    startChat: async (parent, { user1Id, user2Id, content }) => {
+      try {
+        let existingChat = await Chat.findOne({
+          $or: [
+            { user1Id, user2Id },
+            { user1Id: user2Id, user2Id: user1Id },
+          ],
+        }).populate("messages");
+        if (existingChat) {
+          existingChat.messages.push({
+            senderId: user1Id,
+            receiverId: user2Id,
+            content,
+            readStatus: false,
+          });
+          await existingChat.save();
+          return existingChat;
+        } else {
+          const newChat = new Chat({
+            user1Id,
+            user2Id,
+            messages: [
+              {
+                senderId: user1Id,
+                receiverId: user2Id,
+                content,
+                readStatus: false,
+              },
+            ],
+          });
+          await newChat.save();
+          return newChat;
+        }
+      } catch (err) {
+        throw err;
+      }
+    },
+  },
+  Chat: {
+    messages: (parent) => parent.messages,
   },
 };
 

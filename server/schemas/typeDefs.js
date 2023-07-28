@@ -35,9 +35,9 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
-    message: [Message]
-    userChats(username: String!): [Chat]
-    chat(chatId: ID!): Chat
+    # message: [Message]
+    userChats(userID: ID!): [Chat]
+    # chat(chatId: ID!): Chat
   }
 
   type Mutation {
@@ -47,6 +47,7 @@ const typeDefs = gql`
     sendFriendRequest(senderId: ID!, receiverId: ID!): User
     approveFriendRequest(senderId: ID!, receiverId: ID!): User
     rejectFriendRequest(senderId: ID!, receiverId: ID!): User
+    startChat(user1Id: ID!, user2Id: ID!, content: String!): Chat
   }
 `;
 
