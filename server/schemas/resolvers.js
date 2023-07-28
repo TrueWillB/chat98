@@ -51,22 +51,6 @@ const resolvers = {
 
       return { token, user };
     },
-    addFriend: async (parent, { username, friendUsername }, context) => {
-      const user = await User.findOne({ username });
-      const newFriend = await User.findOne({ username: friendUsername });
-
-      if (!user || !newFriend) {
-        throw new Error("Friend not found!");
-      }
-      await User.updateOne(
-        { username },
-        { $addToSet: { pendingFriends: newFriend._id } }
-      );
-      const updatedUser = await User.findOne({ username })
-        .populate("friends")
-        .populate("pendingFriends");
-      return updatedUser;
-    },
     removeFriend: async (parent, { username, friendId }, context) => {
       try {
         const updatedUser = await User.findOneAndDelete(
@@ -78,6 +62,68 @@ const resolvers = {
           throw new Error("Friend not found!");
         }
         return updatedUser;
+      } catch (err) {
+        throw err;
+      }
+    },
+    sendFriendRequest: async (parent, { senderId, receiverId }) => {
+      try {
+        // const temp = await User.findOne({ _id: receiverId });
+        // console.log(temp);
+        const receivingUser = await User.findOneAndUpdate(
+          { _id: receiverId },
+          { $addToSet: { pendingFriends: senderId } },
+          { new: true }
+        );
+        if (!receivingUser) {
+          throw new Error("Invalid friend request");
+        }
+        return receivingUser;
+      } catch (err) {
+        throw err;
+      }
+    },
+    approveFriendRequest: async (parent, { senderId, receiverId }) => {
+      try {
+        // console.log(senderId);
+        // console.log(receiverId);
+        const receivingUser = await User.findOneAndUpdate(
+          { _id: receiverId },
+          {
+            $addToSet: { friends: senderId },
+            $pull: { pendingFriends: senderId },
+          },
+          { new: true }
+        );
+        // console.log(receivingUser);
+        if (!receivingUser) {
+          throw new Error("Invalid friend request");
+        }
+        const sendingUser = await User.findOneAndUpdate(
+          { _id: senderId },
+          { $addToSet: { friends: receiverId } },
+          { new: true }
+        );
+        // console.log(sendingUser);
+        if (!sendingUser) {
+          throw new Error("Invalid friend request");
+        }
+        return receivingUser;
+      } catch (err) {
+        throw err;
+      }
+    },
+    rejectFriendRequest: async (parent, { senderId, receiverId }) => {
+      try {
+        const receivingUser = await User.findOneAndUpdate(
+          { _id: receiverId },
+          { $pull: { pendingFriends: senderId } },
+          { new: true }
+        );
+        if (!receivingUser) {
+          throw new Error("Invalid friend request");
+        }
+        return receivingUser;
       } catch (err) {
         throw err;
       }
