@@ -15,6 +15,12 @@ const userSchema = new Schema(
       required: true,
       minlength: 8,
     },
+    pendingFriends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
     friends: [
       {
         type: Schema.Types.ObjectId,

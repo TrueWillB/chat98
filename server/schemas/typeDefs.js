@@ -6,6 +6,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
+    pendingFriends: [User]
     friends: [User]
   }
 
@@ -41,6 +42,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addFriend(username: String!, friendUsername: String!): User
+    removeFriend(username: String!, friendId: ID!): User
   }
 `;
 
