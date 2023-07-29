@@ -133,37 +133,29 @@ const resolvers = {
     },
     startChat: async (parent, { user1Id, user2Id, content }) => {
       try {
-        let existingChat = await Chat.findOne({
-          $or: [
-            { user1Id, user2Id },
-            { user1Id: user2Id, user2Id: user1Id },
-          ],
-        }).populate("messages");
-        if (existingChat) {
-          existingChat.messages.push({
-            senderId: user1Id,
-            receiverId: user2Id,
-            content,
-            readStatus: false,
-          });
-          await existingChat.save();
-          return existingChat;
-        } else {
-          const newChat = new Chat({
-            user1Id,
-            user2Id,
-            messages: [
-              {
+        console.log(user1Id);
+        console.log(user2Id);
+        console.log(content);
+        let existingChat = await Chat.findOneAndUpdate(
+          {
+            $or: [
+              { user1Id, user2Id },
+              { user1Id: user2Id, user2Id: user1Id },
+            ],
+          },
+          {
+            $addToSet: {
+              messages: {
                 senderId: user1Id,
                 receiverId: user2Id,
                 content,
-                readStatus: false,
+                readstatus: false,
               },
-            ],
-          });
-          await newChat.save();
-          return newChat;
-        }
+            },
+          },
+          { upsert: true, new: true }
+        );
+        return existingChat;
       } catch (err) {
         throw err;
       }
