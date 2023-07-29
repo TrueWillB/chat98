@@ -23,12 +23,6 @@ const resolvers = {
         throw err;
       }
     },
-    // chat: async (parent, { chatId }, context) => {
-    //   return await Chat.findById(chatId).populate({
-    //     path: "messages",
-    //     populate: { path: "sender" },
-    //   });
-    // },
   },
 
   Mutation: {
@@ -131,38 +125,37 @@ const resolvers = {
         throw err;
       }
     },
-    startChat: async (parent, { user1Id, user2Id, content }) => {
+    startChat: async (parent, { user1Id, user2Id }) => {
       try {
-        console.log(user1Id);
-        console.log(user2Id);
-        console.log(content);
-        let existingChat = await Chat.findOneAndUpdate(
-          {
-            $or: [
-              { user1Id, user2Id },
-              { user1Id: user2Id, user2Id: user1Id },
-            ],
-          },
-          {
-            $addToSet: {
-              messages: {
-                senderId: user1Id,
-                receiverId: user2Id,
-                content,
-                readstatus: false,
-              },
-            },
-          },
-          { upsert: true, new: true }
-        );
+        // console.log(user1Id);
+        // console.log(user2Id);
+        let existingChat = await Chat.findOne({
+          $or: [
+            { user1Id, user2Id },
+            { user1Id: user2Id, user2Id: user1Id },
+          ],
+        });
+        if (!existingChat) {
+          const newChat = await Chat.create({ user1Id, user2Id, messages: [] });
+          return newChat;
+        }
         return existingChat;
       } catch (err) {
         throw err;
       }
     },
-  },
-  Chat: {
-    messages: (parent) => parent.messages,
+    sendMessage: async (parent, { chatId, senderId, content }) => {
+      const newMessage = await Message.create({
+        senderId,
+        content,
+        readStatus: false,
+      });
+      await Chat.findByIdAndUpdate(chatId, {
+        $push: { messages: newMessage._id },
+      });
+      await newMessage.populate("senderId", "username");
+      return newMessage;
+    },
   },
 };
 
