@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 
-export default function BasicCard() {
+export default function Home() {
+  // hooks for socket instance, current message input, and array of messages
+  const [socket, setSocket] = useState(null);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  // effect hook to set up socket connection and message event listener
+  useEffect(() => {
+    // create socket connection to server
+    const newSocket = io.connect("http://localhost:3001");
+    setSocket(newSocket);
+    //listens for message event from server
+    newSocket.on("message", (message) => {
+      setMessages((messages) => [...messages, message]);
+    });
+
+    return () => newSocket.close();
+  }, [setSocket]);
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+    //If theres a socket connection, emit a message event with the current message input
+    if (socket) {
+      socket.emit("message", {
+        senderId: "1",
+        receiverId: "2",
+        content: message,
+      });
+      setMessage("");
+    }
+  };
+
   return (
     <div id="chatScreen">
       <Card
@@ -14,43 +45,29 @@ export default function BasicCard() {
           overflowY: "auto",
         }}
       >
-        <div id="sentChat">Sent</div>
-        <div id="sentChat">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam,
-          aliquam labore? Sapiente sunt vero earum laudantium. Quam itaque earum
-          vel officia minus delectus vitae. Consequatur, ut veniam unde, non
-          itaque quaerat sapiente vitae nisi ratione minus veritatis quibusdam
-          tempore, quis natus quod corporis deserunt sunt esse vero in officiis
-          debitis? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ipsam, aliquam labore? Sapiente sunt vero earum laudantium. Quam
-          itaque earum vel officia minus delectus vitae. Consequatur, ut veniam
-          unde, non itaque quaerat sapiente vitae nisi ratione minus veritatis
-          quibusdam tempore, quis natus quod corporis deserunt sunt esse vero in
-          officiis debitis?
-        </div>
-        <div id="receivedChat">Received</div>
-        <div id="receivedChat">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam,
-          aliquam labore? Sapiente sunt vero earum laudantium. Quam itaque earum
-          vel officia minus delectus vitae. Consequatur, ut veniam unde, non
-          itaque quaerat sapiente vitae nisi ratione minus veritatis quibusdam
-          tempore, quis natus quod corporis deserunt sunt esse vero in officiis
-          debitis? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ipsam, aliquam labore? Sapiente sunt vero earum laudantium. Quam
-          itaque earum vel officia minus delectus vitae. Consequatur, ut veniam
-          unde, non itaque quaerat sapiente vitae nisi ratione minus veritatis
-          quibusdam tempore, quis natus quod corporis deserunt sunt esse vero in
-          officiis debitis?
-        </div>
+        {messages.map((message, i) => (
+          <div
+            key={i}
+            id={message.senderId === "1" ? "sentChat" : "receivedChat"}
+          >
+            <p>
+              From: User {message.senderId} To: User {message.receiverId} :{" "}
+              {message.content}
+            </p>
+          </div>
+        ))}
       </Card>
       <div id="textareaContainer">
-        <textarea id="chatTextarea">
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        </textarea>
+        <textarea
+          id="chatTextarea"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
         <div id="textareaButtons">
           <CardActions style={{ flexDirection: "column", margin: "8" }}>
-            <Button variant="contained">Send</Button>
+            <Button variant="contained" onClick={sendMessage}>
+              Send
+            </Button>
           </CardActions>
         </div>
       </div>
