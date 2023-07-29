@@ -35,19 +35,30 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <div className="App">
-          <Routes>
-            <Toolbar />
-            <div style={{ display: "flex" }}>
-              <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<ProfilePics />} />
-            </div>
-          </Routes>
+      <div className="App">
+        <Toolbar />
+        <div style={{ display: "flex" }}>
+          <Home />
+          <ProfilePics />
         </div>
-      </Router>
+      </div>
     </ApolloProvider>
   );
+}
+
+{
+  /* <ApolloProvider client={client}>
+     <Router>
+       <div className="App">
+         <Routes>
+           <div style={{ display: "flex" }}>
+             <Route path="/" element={<Home />} />
+             <Route path="/profile" element={<ProfilePics />} />
+           </div>
+         </Routes>
+       </div>
+     </Router>
+   </ApolloProvider> */
 }
 
 export default App;
