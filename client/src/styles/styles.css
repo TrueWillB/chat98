@@ -113,3 +113,12 @@ body {
   justify-content: space-around;
   background-color: #f3f3f3;
 }
+
+/* =====passwordChecker.js===== */
+#password-requirement-list {
+  list-style-type: none;
+}
+
+.bold-text {
+  font-weight: bold;
+}

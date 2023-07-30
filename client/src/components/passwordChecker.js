@@ -16,12 +16,14 @@ const PassCheck = ({ value }) => {
   return (
     <React.Fragment>
       <div>
-        <ul>
-          <li>Length: {pwPropMet.length ? "✅" : "❌"}</li>
-          <li>Uppercase: {pwPropMet.upper ? "✅" : "❌"}</li>
-          <li>Lowercase: {pwPropMet.lower ? "✅" : "❌"}</li>
-          <li>Number: {pwPropMet.number ? "✅" : "❌"}</li>
-          <li>Special Character: {pwPropMet.special ? "✅" : "❌"}</li>
+        <ul id="password-requirement-list">
+          {" "}
+          <span className="bold-text">Password requires at least:</span>
+          <li>8 characters {pwPropMet.length ? "✅" : "❌"}</li>
+          <li>1 uppercase character {pwPropMet.upper ? "✅" : "❌"}</li>
+          <li>1 lowercase character {pwPropMet.lower ? "✅" : "❌"}</li>
+          <li>1 number {pwPropMet.number ? "✅" : "❌"}</li>
+          <li>1 special character {pwPropMet.special ? "✅" : "❌"}</li>
         </ul>
       </div>
     </React.Fragment>

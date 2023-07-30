@@ -100,8 +100,8 @@ const Login = () => {
     backgroundColor: "white",
     border: "2px solid black",
     boxShadow: 24,
-    width: 500,
-    marginBottom: 20,
+    width: 400,
+    // marginBottom: 20,
     // height: 400,
   };
 
