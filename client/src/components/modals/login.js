@@ -152,12 +152,17 @@ const Login = () => {
                       variant="outlined"
                       onChange={handleLoginChange}
                     />
-                    <Button variant="contained" onClick={handleLogin}>
-                      Login
-                    </Button>
-                    <Button variant="contained" onClick={handleOpenSignupModal}>
-                      Click Here to Signup
-                    </Button>
+                    <div>
+                      <Button variant="contained" onClick={handleLogin}>
+                        Login
+                      </Button>
+                      <Button
+                        variant="contained"
+                        onClick={handleOpenSignupModal}
+                      >
+                        Click Here to Signup
+                      </Button>
+                    </div>
                   </div>
                 )}
                 {signupModalOpen && (
