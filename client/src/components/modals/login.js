@@ -43,7 +43,7 @@ const Login = () => {
   //  handleLogin will allow us to submit the login form
   const handleLogin = async (event) => {
     event.preventDefault();
-    console.log(loginFormState);
+    // console.log(loginFormState);
     try {
       const { data } = await login({
         variables: { ...loginFormState },
@@ -60,7 +60,7 @@ const Login = () => {
   //  handleSignup will allow us to submit the signup form
   const handleSignup = async (event) => {
     event.preventDefault();
-    console.log(signUpFormState);
+    // console.log(signUpFormState);
     try {
       const { data } = await addUser({
         variables: { ...signUpFormState },
