@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Box, Button, TextField } from "@mui/material";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER, ADD_USER } from "../../utils/mutations";
-
+import PassCheck from "../passwordChecker";
 import Auth from "../../utils/auth";
 
 const Login = () => {
@@ -100,8 +100,9 @@ const Login = () => {
     backgroundColor: "white",
     border: "2px solid black",
     boxShadow: 24,
-    width: 400,
-    height: 400,
+    width: 500,
+    marginBottom: 20,
+    // height: 400,
   };
 
   return (
@@ -112,7 +113,7 @@ const Login = () => {
             Logout
           </Button>
         ) : (
-          <div>
+          <div id="loginModalContents">
             <Button variant="contained" onClick={handleOpenLoginModal}>
               Login
             </Button>
@@ -153,10 +154,15 @@ const Login = () => {
                       onChange={handleLoginChange}
                     />
                     <div>
-                      <Button variant="contained" onClick={handleLogin}>
+                      <Button
+                        className="LoginModBut"
+                        variant="contained"
+                        onClick={handleLogin}
+                      >
                         Login
                       </Button>
                       <Button
+                        className="LoginModBut"
                         variant="contained"
                         onClick={handleOpenSignupModal}
                       >
@@ -168,6 +174,16 @@ const Login = () => {
                 {signupModalOpen && (
                   <div id="signupModal">
                     <h2 id="parent-modal-title">Signup</h2>
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="username"
+                      name="username"
+                      type="username"
+                      value={signUpFormState.username}
+                      variant="outlined"
+                      onChange={handleSignupChange}
+                    />
                     <TextField
                       required
                       id="outlined-basic"
@@ -188,20 +204,19 @@ const Login = () => {
                       variant="outlined"
                       onChange={handleSignupChange}
                     />
-                    <TextField
-                      required
-                      id="outlined-basic"
-                      label="username"
-                      name="username"
-                      type="username"
-                      value={signUpFormState.username}
-                      variant="outlined"
-                      onChange={handleSignupChange}
-                    />
-                    <Button variant="contained" onClick={handleSignup}>
+                    <PassCheck value={signUpFormState.password} />
+                    <Button
+                      className="LoginModBut"
+                      variant="contained"
+                      onClick={handleSignup}
+                    >
                       Signup
                     </Button>
-                    <Button variant="contained" onClick={handleOpenLoginModal}>
+                    <Button
+                      className="LoginModBut"
+                      variant="contained"
+                      onClick={handleOpenLoginModal}
+                    >
                       Back to Login
                     </Button>
                   </div>
