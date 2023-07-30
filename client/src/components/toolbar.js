@@ -52,10 +52,7 @@ export default function MultipleSelectCheckmarks() {
             <Button variant="contained" href="#contained-buttons">
               Add Friend
             </Button>
-            <Button variant="contained" aria-label="Login">
-              <Login />
-              Login
-            </Button>
+            <Login />
             <Button variant="contained" disabled>
               Photo
             </Button>
