@@ -127,17 +127,24 @@ const resolvers = {
     },
     startChat: async (parent, { user1Id, user2Id }) => {
       try {
-        // console.log(user1Id);
-        // console.log(user2Id);
+        const user1 = await User.findById(user1Id);
+        const user2 = await User.findById(user2Id);
+
+        if (!user1 || !user2) {
+          throw new Error("One or both users not found");
+        }
+
         let existingChat = await Chat.findOne({
           $or: [
             { user1Id, user2Id },
             { user1Id: user2Id, user2Id: user1Id },
           ],
-        });
+        })
+          .populate("user1Id user2Id")
+          .populate("messages");
         if (!existingChat) {
           const newChat = await Chat.create({ user1Id, user2Id, messages: [] });
-          return newChat;
+          return await newChat.populate("user1Id user2Id");
         }
         return existingChat;
       } catch (err) {
@@ -150,10 +157,22 @@ const resolvers = {
         content,
         readStatus: false,
       });
-      await Chat.findByIdAndUpdate(chatId, {
-        $push: { messages: newMessage._id },
+
+      const updatedChat = await Chat.findByIdAndUpdate(
+        chatId,
+        { $push: { messages: newMessage._id } },
+        { new: true }
+      ).populate({
+        path: "messages",
+        model: "message",
+        populate: {
+          path: "senderId",
+          model: "user",
+        },
       });
-      await newMessage.populate("senderId", "username");
+      if (!updatedChat) {
+        throw new Error("Chat not found");
+      }
       return newMessage;
     },
   },
