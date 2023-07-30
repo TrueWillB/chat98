@@ -107,99 +107,105 @@ const Login = () => {
   return (
     <React.Fragment>
       <div id="modalContainer">
-        <Button onClick={handleOpenLoginModal}>Login</Button>
         {loginData || addUserData ? (
-          <p>Success! You are now logged in!</p>
+          <Button variant="contained" onClick={Auth.logout}>
+            Logout
+          </Button>
         ) : (
-          <Modal
-            open={loginModalOpen || signupModalOpen}
-            onClose={handleClose}
-            aria-labelledby="parent-modal-title"
-            aria-describedby="parent-modal-description"
-          >
-            <Box
-              component="form"
-              sx={{
-                ...modalStyle,
-                "& .MuiTextField-root": { m: 1, width: "25ch" },
-              }}
+          <div>
+            <Button variant="contained" onClick={handleOpenLoginModal}>
+              Login
+            </Button>
+            <Modal
+              open={loginModalOpen || signupModalOpen}
+              onClose={handleClose}
+              aria-labelledby="parent-modal-title"
+              aria-describedby="parent-modal-description"
             >
-              {loginModalOpen && (
-                <div id="loginModal">
-                  <h2 id="parent-modal-title">Chat 98 Login</h2>
-                  <TextField
-                    required
-                    id="outlined-basic"
-                    label="email"
-                    name="email"
-                    type="email"
-                    value={loginFormState.email}
-                    variant="outlined"
-                    onChange={handleLoginChange}
-                  />
-                  <TextField
-                    required
-                    id="outlined-basic"
-                    label="password"
-                    name="password"
-                    type="password"
-                    value={loginFormState.password}
-                    variant="outlined"
-                    onChange={handleLoginChange}
-                  />
-                  <Button variant="contained" onClick={handleLogin}>
-                    Login
-                  </Button>
-                  <Button variant="contained" onClick={handleOpenSignupModal}>
-                    Click Here to Signup
-                  </Button>
-                </div>
-              )}
-              {signupModalOpen && (
-                <div id="signupModal">
-                  <h2 id="parent-modal-title">Signup</h2>
-                  <TextField
-                    required
-                    id="outlined-basic"
-                    label="email"
-                    name="email"
-                    type="email"
-                    value={signUpFormState.email}
-                    variant="outlined"
-                    onChange={handleSignupChange}
-                  />
-                  <TextField
-                    required
-                    id="outlined-basic"
-                    label="password"
-                    name="password"
-                    type="password"
-                    value={signUpFormState.password}
-                    variant="outlined"
-                    onChange={handleSignupChange}
-                  />
-                  <TextField
-                    required
-                    id="outlined-basic"
-                    label="username"
-                    name="username"
-                    type="username"
-                    value={signUpFormState.username}
-                    variant="outlined"
-                    onChange={handleSignupChange}
-                  />
-                  <Button variant="contained" onClick={handleSignup}>
-                    Signup
-                  </Button>
-                  <Button variant="contained" onClick={handleOpenLoginModal}>
-                    Back to Login
-                  </Button>
-                </div>
-              )}
-              {loginError && <div>{loginError.message}</div>}
-              {addUserError && <div>{addUserError.message}</div>}
-            </Box>
-          </Modal>
+              <Box
+                component="form"
+                sx={{
+                  ...modalStyle,
+                  "& .MuiTextField-root": { m: 1, width: "25ch" },
+                }}
+              >
+                {loginModalOpen && (
+                  <div id="loginModal">
+                    <h2 id="parent-modal-title">Chat 98 Login</h2>
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="email"
+                      name="email"
+                      type="email"
+                      value={loginFormState.email}
+                      variant="outlined"
+                      onChange={handleLoginChange}
+                    />
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="password"
+                      name="password"
+                      type="password"
+                      value={loginFormState.password}
+                      variant="outlined"
+                      onChange={handleLoginChange}
+                    />
+                    <Button variant="contained" onClick={handleLogin}>
+                      Login
+                    </Button>
+                    <Button variant="contained" onClick={handleOpenSignupModal}>
+                      Click Here to Signup
+                    </Button>
+                  </div>
+                )}
+                {signupModalOpen && (
+                  <div id="signupModal">
+                    <h2 id="parent-modal-title">Signup</h2>
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="email"
+                      name="email"
+                      type="email"
+                      value={signUpFormState.email}
+                      variant="outlined"
+                      onChange={handleSignupChange}
+                    />
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="password"
+                      name="password"
+                      type="password"
+                      value={signUpFormState.password}
+                      variant="outlined"
+                      onChange={handleSignupChange}
+                    />
+                    <TextField
+                      required
+                      id="outlined-basic"
+                      label="username"
+                      name="username"
+                      type="username"
+                      value={signUpFormState.username}
+                      variant="outlined"
+                      onChange={handleSignupChange}
+                    />
+                    <Button variant="contained" onClick={handleSignup}>
+                      Signup
+                    </Button>
+                    <Button variant="contained" onClick={handleOpenLoginModal}>
+                      Back to Login
+                    </Button>
+                  </div>
+                )}
+                {loginError && <div>{loginError.message}</div>}
+                {addUserError && <div>{addUserError.message}</div>}
+              </Box>
+            </Modal>
+          </div>
         )}
       </div>
     </React.Fragment>
