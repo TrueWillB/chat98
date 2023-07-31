@@ -11,6 +11,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Toolbar from "./components/toolbar";
 import Sidebar from "./components/sidebar";
 import Home from "./pages/Home";
+import UserSearch from "./components/UserSearch";
+import FriendRequests from "./components/FriendRequests";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -35,11 +37,22 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Toolbar />
-      <div id="homeSidebarContainer">
-        <Home />
-        <Sidebar />
-      </div>
+      <Router>
+        <Toolbar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div id="homeSidebarContainer">
+                <Home />
+                <Sidebar />
+              </div>
+            }
+          />
+          <Route path="/search" element={<UserSearch />} />
+          <Route path="/friend-requests" element={<FriendRequests />} />
+        </Routes>
+      </Router>
     </ApolloProvider>
   );
 }

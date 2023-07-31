@@ -15,10 +15,5 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^8.2.0"
-  },
-  "dependencies": {
-    "@auth0/auth0-react": "^2.2.0",
-    "bcrypt": "^5.1.0",
-    "react-router-dom": "^6.14.2"
   }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Login from "./modals/login";
@@ -13,7 +14,12 @@ const Toolbar = () => {
         <Stack spacing={2} direction="row">
           <Button variant="contained">Theme</Button>
           <Login />
-          <Button variant="contained">Requests</Button>
+          <Button variant="contained" component={Link} to="/friend-requests">
+            Requests
+          </Button>
+          <Button variant="contained" component={Link} to="/search">
+            Search
+          </Button>
         </Stack>
       </div>
     </div>

@@ -25,57 +25,53 @@ export const LOGIN_USER = gql`
   }
 `;
 
-// export const REMOVE_FRIEND = gql`
-//     mutation removeFriend(username:String!, friendId:ID!){
-//     removeFriend(username:$username, friendId:$friendId){
-//         _id
-//         username
-//         friends{
-//             _id
-//             username
-//         }
-//     }
-// }
-// `;
+export const REMOVE_FRIEND = gql`
+  mutation removeFriend($username: String!, $friendId: ID!) {
+    removeFriend(username: $username, friendId: $friendId) {
+      _id
+      username
+      friends {
+        _id
+      }
+    }
+  }
+`;
 
-// export const SEND_FRIEND_REQUEST = gql`
-//    mutation sendFriendRequest(senderId:ID!, receiverId:ID!){
-//     sendFriendRequest(senderId:$senderId, receiverId:$receiverId){
-//         _id
-//         username
-//         pendingFriends{
-//             _id
-//             username
-//         }
-//     }
-// }
-// `;
+export const SEND_FRIEND_REQUEST = gql`
+  mutation SendFriendRequest($senderId: ID!, $receiverId: ID!) {
+    sendFriendRequest(senderId: $senderId, receiverId: $receiverId) {
+      _id
+      username
+      pendingFriends {
+        _id
+      }
+    }
+  }
+`;
 
-// export const APPROVE_FRIEND_REQUEST = gql`
-//     mutation approveFriendRequest(senderId:ID!, receiverId:ID!){
-//         approveFriendRequest(senderId:$senderId, receiverId:$receiverId){
-//         _id
-//         username
-//         friends{
-//             _id
-//             username
-//         }
-//     }
-// }
-// `;
+export const APPROVE_FRIEND_REQUEST = gql`
+  mutation approveFriendRequest($senderId: ID!, $receiverId: ID!) {
+    approveFriendRequest(senderId: $senderId, receiverId: $receiverId) {
+      _id
+      username
+      friends {
+        _id
+      }
+    }
+  }
+`;
 
-// export const REJECT_FRIEND_REQUEST = gql`
-//     mutation rejectFriendRequest(senderId:ID!, receiverId:ID!){
-//         rejectFriendRequest(senderId:$senderId, receiverId:$receiverId){
-//         _id
-//         username
-//         pendingFriends{
-//             _id
-//             username
-//         }
-//     }
-// }
-// `;
+export const REJECT_FRIEND_REQUEST = gql`
+  mutation rejectFriendRequest($senderId: ID!, $receiverId: ID!) {
+    rejectFriendRequest(senderId: $senderId, receiverId: $receiverId) {
+      _id
+      username
+      pendingFriends {
+        _id
+      }
+    }
+  }
+`;
 
 // export const START_CHAT = gql`
 //     mutation startChat($user1Id: ID!, user2Id: ID!) {
