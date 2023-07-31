@@ -55,15 +55,31 @@ const resolvers = {
     },
     removeFriend: async (parent, { username, friendId }, context) => {
       try {
-        const updatedUser = await User.findOneAndDelete(
+        //Get user ID of user who is removing friend. Doing it this way to preserve any front end work that has already happened
+        const removerUser = await User.findOne({ username });
+        const removerUserId = removerUser._id;
+        console.log(removerUser.friends);
+        console.log(username);
+        console.log(removerUserId);
+        console.log(friendId);
+        const remover = await User.findOneAndUpdate(
           { username },
-          { $pull: { friends: { _id: friendId } } },
+          { $pull: { friends: { $in: [friendId] } } },
           { new: true }
         );
-        if (!updatedUser) {
-          throw new Error("Friend not found!");
+        console.log(remover);
+        if (!remover) {
+          throw new Error("User attempting to remove friend was not found");
         }
-        return updatedUser;
+        const removee = await User.findOneAndUpdate(
+          { _id: friendId },
+          { $pull: { friends: { $in: [removerUserId] } } },
+          { new: true }
+        );
+        if (!removee) {
+          throw new Error("Friend to be removed was not found");
+        }
+        return remover;
       } catch (err) {
         throw err;
       }
