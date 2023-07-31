@@ -1,44 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import { UserPlus, UserMinus } from "feather-icons-react";
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_USER } from "../utils/queries";
+import { REMOVE_FRIEND } from "../utils/mutations";
+import auth from "../utils/auth";
 
-// example usernames
 const FriendsList = () => {
-  const initialUsernames = [
-    "Lernantino",
-    "Andrick",
-    "Will",
-    "Jordan",
-    "Derek",
-    "Madeline",
-  ];
+  const profile = auth.getProfile();
+  const { loading, error, data, refetch } = useQuery(QUERY_USER, {
+    variables: { username: profile.data.username },
+  });
 
-  const checkFriendshipStatus = () => {
-    // insert check friendship status logic
-    return false;
+  const [removeFriend] = useMutation(REMOVE_FRIEND);
+
+  const handleRemoveFriend = async (friendId) => {
+    try {
+      await removeFriend({
+        variables: { username: profile.data.username, friendId: friendId },
+      });
+      alert("Friend removed!");
+      refetch();
+    } catch (err) {
+      alert(err);
+    }
   };
 
-  const [isFriend, setIsFriend] = useState(checkFriendshipStatus());
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredUsernames, setFilteredUsernames] = useState(initialUsernames);
-
-  const handleFriendButtonClick = () => {
-    setIsFriend(!isFriend);
-  };
-
-  const handleSearchInputChange = (event) => {
-    const { value } = event.target;
-    setSearchQuery(value);
-    filterUsernames(value);
-  };
-
-  const filterUsernames = (query) => {
-    const filtered = initialUsernames.filter((username) =>
-      username.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredUsernames(filtered);
-  };
-
-  // span elements labeled "replaceMe" exist for styling purposes. Replace/modify as needed for back end
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
 
   return (
     <React.Fragment>
@@ -47,26 +35,18 @@ const FriendsList = () => {
           className="searchInput"
           type="text"
           placeholder="Find friends"
-          value={searchQuery}
-          onChange={handleSearchInputChange}
+          disabled
         />
       </div>
       <div id="usersContainer">
-        {filteredUsernames.map((username, index) => (
-          <div key={index} className="userList">
-            <span className="username" id="replaceMe">
-              {username}
-            </span>{" "}
-            <button className="friendButton" onClick={handleFriendButtonClick}>
-              {isFriend ? (
-                <>
-                  <UserMinus stroke="red" size={16} />
-                </>
-              ) : (
-                <>
-                  <UserPlus stroke="green" size={16} />
-                </>
-              )}
+        {data?.user?.friends?.map((friend) => (
+          <div key={friend._id} className="userList">
+            <span className="username">{friend.username}</span>
+            <button
+              className="friendButton"
+              onClick={() => handleRemoveFriend(friend._id)}
+            >
+              <UserMinus stroke="red" size={16} />
             </button>
           </div>
         ))}
