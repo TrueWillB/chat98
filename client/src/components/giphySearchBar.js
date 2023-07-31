@@ -18,15 +18,19 @@ function GiphySearchBar(props) {
     setQuery("");
   };
   return (
-    <div id="searchBar">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for GIFs..."
-      />
-      <button onClick={handleSearch}>Search</button>
-      <ResultList results={results} onSelectGif={handleSelectGif} />
+    <div className="gifSearchContainer">
+      <div id="searchBar">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for GIFs..."
+        />
+      </div>
+      <div className="card-container">
+        <button onClick={handleSearch}>Search</button>
+        <ResultList results={results} onSelectGif={handleSelectGif} />
+      </div>
     </div>
   );
 }
