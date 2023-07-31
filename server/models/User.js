@@ -15,6 +15,9 @@ const userSchema = new Schema(
       required: true,
       minlength: 8,
     },
+    avatar: {
+      type: String,
+    },
     pendingFriends: [
       {
         type: Schema.Types.ObjectId,

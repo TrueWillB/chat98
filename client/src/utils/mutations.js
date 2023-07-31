@@ -13,6 +13,16 @@ export const ADD_USER = gql`
   }
 `;
 
+export const ADD_AVATAR = gql`
+  mutation addAvatar($username: String!, $avatar: String!) {
+    addAvatar(username: $username, avatar: $avatar) {
+      _id
+      username
+      avatar
+    }
+  }
+`;
+
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
