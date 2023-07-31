@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Login from "./modals/login";
-
 // temporary: friend request button is a placeholder for alerting user to new requests
 
 const Toolbar = () => {
