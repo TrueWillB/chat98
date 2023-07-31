@@ -37,6 +37,19 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    addAvatar: async (parent, { username, avatar }) => {
+      try {
+        const updatedUser = await User.findOneAndUpdate(
+          ({ username }, { $set: { avatar } }, { new: true })
+        );
+        if (!updatedUser) {
+          throw new Error("User not found!");
+        }
+        return updatedUser;
+      } catch (err) {
+        throw err;
+      }
+    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
