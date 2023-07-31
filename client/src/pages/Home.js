@@ -47,17 +47,8 @@ export default function Home() {
   };
 
   return (
+    <div id="chatContainer">
     <div id="chatScreen">
-      <Card
-        sx={{
-          width: "95%",
-          border: 0.3,
-          borderColor: "#e5e5e5",
-          maxHeight: "75vh",
-          margin: "auto",
-          overflowY: "auto",
-        }}
-      >
         {messages.map((message, i) => (
           <div
             key={i}
@@ -68,8 +59,7 @@ export default function Home() {
               {message.content}
             </p>
           </div>
-        ))}
-      </Card>
+        ))}</div>
       <div id="textareaContainer">
         <textarea
           id="chatTextarea"

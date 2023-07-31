@@ -1,4 +1,8 @@
 * {
+  box-sizing: border-box;
+}
+
+* {
   scrollbar-width: thin;
   scrollbar-color: #d9d9d9 #ffffff00;
 }
@@ -25,6 +29,7 @@
 }
 
 body {
+  margin: 0%;
   text-align: center;
   margin: 0%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -34,21 +39,34 @@ body {
 
 #toolbar {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  width: 100%;
   background-color: #e8e8e8;
 }
 
+/* rename to chatAndSidebarContainer! */
+
 #homeSidebarContainer {
   display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  width: 100%;
+  flex: 1;
+}
+
+#chatContainer {
+  height: 70vh;
+  width: 100%;
+  margin-left: 3%;
 }
 
 #chatScreen {
-  width: 110%;
+  height: 90%;
+  background-color: #f3f3f3;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  background-color: #f3f3f3;
+  flex: 1;
+  overflow-y: auto;
 }
 
 #sentChat {
@@ -82,20 +100,18 @@ body {
   margin: 2%;
 }
 
-#textareaButtons {
-  margin: 0%;
-}
-
 #textareaContainer {
   display: flex;
   align-items: center;
   background-color: #f3f3f3;
+  height: 30vh;
 }
 
 #chatTextarea {
   resize: none;
   outline: none;
   margin: 2%;
+  height: 100%;
   width: 85%;
   box-sizing: border-box;
   border: 2px solid #e5e5e5;
@@ -109,9 +125,10 @@ body {
 
 #sidebarContainer {
   background-color: #f3f3f3;
-  margin-right: 2%;
-  margin-left: 2%;
-  width: 40%;
+  margin-right: 3%;
+  margin-left: 3%;
+  height: 100vh;
+  width: 50%;
 }
 
 .searchbarContainer {
@@ -153,6 +170,7 @@ body {
   margin: 4px 2px;
 }
 
+.userList {
 .userList {
   display: flex;
   justify-content: space-between;
