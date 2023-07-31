@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
+import GiphySearchBar from "../components/giphySearchBar";
 
 // Madeline to do: add logic so chat screen automatically scrolls/jumps down when new message is sent
 
@@ -23,6 +24,14 @@ export default function Home() {
 
     return () => newSocket.close();
   }, [setSocket]);
+
+  const handleSelectGif = (url) => {
+    const gifElement = <img alt="Selected GIF" src={url} />;
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { senderId: "1", receiverId: "2", content: gifElement },
+    ]);
+  };
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -75,6 +84,7 @@ export default function Home() {
           </CardActions>
         </div>
       </div>
+      <GiphySearchBar onSelectGif={handleSelectGif} />
     </div>
   );
 }
