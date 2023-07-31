@@ -4,6 +4,8 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 
+// Madeline to do: add logic so chat screen automatically scrolls/jumps down when new message is sent
+
 export default function Home() {
   // hooks for socket instance, current message input, and array of messages
   const [socket, setSocket] = useState(null);
@@ -39,8 +41,10 @@ export default function Home() {
     <div id="chatScreen">
       <Card
         sx={{
-          width: 1070,
-          maxHeight: "400px",
+          width: "95%",
+          border: 0.3,
+          borderColor: "#e5e5e5",
+          maxHeight: "75vh",
           margin: "auto",
           overflowY: "auto",
         }}

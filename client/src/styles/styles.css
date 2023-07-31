@@ -1,10 +1,10 @@
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(217, 217, 217) #ffffff00;
+  scrollbar-color: #d9d9d9 #ffffff00;
 }
 
 *::-webkit-scrollbar {
-  width: 12px;
+  width: 14px;
 }
 
 *::-webkit-scrollbar-track {
@@ -12,20 +12,23 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: rgb(222, 222, 222);
+  background-color: #dedede;
   border-radius: 20px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(150, 150, 150);
+  background-color: #969696;
+}
+
+#root {
+margin: 0%;
 }
 
 body {
   text-align: center;
   margin: 0%;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 2.5vh;
 }
 
 #toolbar {
@@ -36,9 +39,13 @@ body {
   background-color: #e8e8e8;
 }
 
+
+#homeSidebarContainer {
+  display: flex;
+}
+
 #chatScreen {
-  margin: 2%;
-  width: 1100px;
+  width: 110%;
   scrollbar-width: none;
   -ms-overflow-style: none;
   background-color: #f3f3f3;
@@ -51,13 +58,12 @@ body {
   background-color: #e8e8e8;
   color: #5d5d5d;
   text-align: left;
-  max-width: 700px;
-  max-height: 300px;
+  max-width: 80%;
   width: fit-content;
   height: fit-content;
   overflow: hidden;
   border-radius: 20px;
-  padding: 10px;
+  padding: 1.5%;
   margin: 2%;
 }
 
@@ -66,59 +72,124 @@ body {
   flex-direction: reverse;
   background-color: #daeeff;
   color: #1a4d79;
-  max-width: 700px;
-  max-height: 300px;
+  max-width: 80%;
   width: fit-content;
   height: fit-content;
+  text-align: left;
   overflow: hidden;
   border-radius: 20px;
-  padding: 10px;
+  padding: 1.5%;
   margin: 2%;
-}
-
-#textareaContainer {
-  display: flex;
-  background-color: #f3f3f3;
-  align-content: center;
-  align-items: center;
-  margin-bottom: 2%;
-}
-
-#chatTextarea {
-  resize: none;
-  outline: none;
-  margin-top: 10px;
-  margin: 1%;
-  width: 950px;
-  height: 200px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #e5e5e5;
-  border-radius: 4px;
-  background-color: #ffffff;
-  font-size: 18px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  resize: none;
 }
 
 #textareaButtons {
   margin: 0%;
 }
 
-#sidePanelContainer {
+#textareaContainer {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   background-color: #f3f3f3;
 }
 
-/* =====passwordChecker.js===== */
-#password-requirement-list {
-  list-style-type: none;
+#chatTextarea {
+  resize: none;
+  outline: none;
+  margin: 2%;
+  width: 85%;
+  box-sizing: border-box;
+  border: 2px solid #e5e5e5;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 2.5vh;
+  padding: 2%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.bold-text {
-  font-weight: bold;
+#sidebarContainer {
+  background-color: #f3f3f3;
+  margin-right: 2%;
+  margin-left: 2%;
+  width: 40%;
 }
+
+.searchbarContainer {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  margin: 3%;
+}
+
+.searchInput {
+  flex: 1;
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 8px;
+  outline: none;
+  font-size: 16px;
+}
+
+.searchInput:hover {
+  border: 1px solid rgb(182, 182, 182);
+}
+
+.searchInput:hover::placeholder {
+  color: rgb(160, 160, 160);
+}
+
+.sidebarBackButton {
+  border: none;
+  background-color: none;
+  color: #a8a8a8;
+}
+
+.sidebarBackButton:hover {
+  color: rgb(106, 106, 106);
+}
+
+.sidebarFriendButton {
+  float: right;
+  border: none;
+  margin: 4px 2px;
+}
+
+.userList {  
+  display: flex;
+  justify-content: space-between;
+  margin-left: 7%;
+  margin-right: 7%;
+  margin-top: 2%;
+}
+
+#profilePicContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.userPhoto {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+/* temporary */
+input[type="file"] {
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.username {
+  display: block;
+  margin-right: 10px;
+}
+
+.friendButton {
+  border: none;
+  margin: 1%;
+}
+
+
+

@@ -9,7 +9,7 @@ import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Toolbar from "./components/toolbar";
-import ProfilePics from "./components/sidePanel";
+import Sidebar from "./components/sidebar";
 import Home from "./pages/Home";
 
 const httpLink = createHttpLink({
@@ -35,12 +35,10 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="App">
-        <Toolbar />
-        <div style={{ display: "flex" }}>
-          <Home />
-          <ProfilePics />
-        </div>
+      <Toolbar />
+      <div id="homeSidebarContainer">
+        <Home />
+        <Sidebar />
       </div>
     </ApolloProvider>
   );
