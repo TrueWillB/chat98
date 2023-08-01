@@ -16,7 +16,10 @@ const Toolbar = () => {
         <Button class="homeButtons">Time Travel</Button>
       </div>
       <div id="toolbarButtonsRight">
-        <Button class="homeButtons" component={Link} to="/friend-requests">
+        <Button className="homeButtons" component={Link} to="/home">
+          Home
+        </Button>
+        <Button className="homeButtons" component={Link} to="/friend-requests">
           Requests
         </Button>
       </div>

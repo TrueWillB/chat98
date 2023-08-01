@@ -37,7 +37,7 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     userByID(userID: ID!): User
-    userChats(userID: ID!): [Chat]
+    userChats(userId: ID!, friendId: ID!): Chat
     me: [User]
   }
 
