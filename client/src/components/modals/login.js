@@ -67,7 +67,7 @@ const Login = () => {
       });
 
       Auth.login(data.addUser.token);
-      handleClose();
+      window.location.replace("/avatar-generator");
       console.log("login success!");
     } catch (e) {
       console.error(e);
