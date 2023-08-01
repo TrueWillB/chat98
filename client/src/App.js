@@ -14,7 +14,7 @@ import Home from "./pages/Home";
 import UserSearch from "./components/UserSearch";
 import FriendRequests from "./components/FriendRequests";
 // import AddAvatar from "./components/addAvatar";
-// import AvatarGenerator from "./components/AvatarGenerator";
+import AvatarGenerator from "./components/avatarGenerator";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -53,7 +53,7 @@ function App() {
           />
           <Route path="/search" element={<UserSearch />} />
           <Route path="/friend-requests" element={<FriendRequests />} />
-          {/* <Route path="/avatar-generator" element={<AvatarGenerator />} /> */}
+          <Route path="/avatar-generator" element={<AvatarGenerator />} />
         </Routes>
       </Router>
     </ApolloProvider>
