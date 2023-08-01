@@ -19,13 +19,13 @@ import FriendRequests from "./components/FriendRequests";
 // import AddAvatar from "./components/addAvatar";
 import AvatarGenerator from "./components/avatarGenerator";
 
-// const httpLink = createHttpLink({
-//   uri: "http://localhost:3001/graphql",
-// });
-
 const httpLink = createHttpLink({
-  uri: "/graphql",
+  uri: "http://localhost:3001/graphql",
 });
+
+// const httpLink = createHttpLink({
+//   uri: "/graphql",
+// });
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");

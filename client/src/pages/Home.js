@@ -35,7 +35,10 @@ export default function Home() {
   // effect hook to set up socket connection and message event listener
   useEffect(() => {
     // create socket connection to server
-    const newSocket = io();
+    const newSocket = io.connect("http://localhost:3001");
+
+    // const newSocket = io();
+
     setSocket(newSocket);
     //listens for message event from server
     newSocket.on("message", (message) => {
