@@ -14,10 +14,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_AVATAR = gql`
-  mutation addAvatar($username: String!, $avatar: String!) {
-    addAvatar(username: $username, avatar: $avatar) {
-      _id
-      username
+  mutation addAvatar($avatar: String!) {
+    addAvatar(avatar: $avatar) {
       avatar
     }
   }

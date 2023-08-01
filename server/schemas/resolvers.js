@@ -29,19 +29,33 @@ const resolvers = {
         throw err;
       }
     },
+    me: async (parent, args, context) => {
+      return await User.findById(context.user._id)
+        .populate("friends")
+        .populate("pendingFriends");
+    },
   },
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
+      console.log(user);
       const token = signToken(user);
       return { token, user };
     },
-    addAvatar: async (parent, { username, avatar }) => {
+    addAvatar: async (parent, { avatar }, context) => {
       try {
-        const updatedUser = await User.findOneAndUpdate(
-          ({ username }, { $set: { avatar } }, { new: true })
+        const updatedUser = await User.findByIdAndUpdate(
+          context.user._id,
+          { avatar },
+          { new: true }
         );
+        // const currentUser = await User.findOne({
+        //   username: context.user.username,
+        // });
+        // console.log(currentUser);
+        // console.log(context.user);
+        console.log(updatedUser);
         if (!updatedUser) {
           throw new Error("User not found!");
         }
