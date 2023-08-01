@@ -81,35 +81,39 @@ export const REJECT_FRIEND_REQUEST = gql`
   }
 `;
 
-// export const START_CHAT = gql`
-//     mutation startChat($user1Id: ID!, user2Id: ID!) {
-//         startChat(user1Id: $user1Id, user2Id: $user2Id) {
-//             _id
-//             user1Id
-//             user2Id
-//             messages {
-//                 _id
-//                 senderId {
-//                     _id
-//                     username
-//                 }
-//                 content
-//                 readStatus
-//             }
-//         }
-//     }
-// `;
+export const START_CHAT = gql`
+  mutation startChat($user1Id: ID!, $user2Id: ID!) {
+    startChat(user1Id: $user1Id, user2Id: $user2Id) {
+      _id
+      user1Id {
+        _id
+        username
+      }
+      user2Id {
+        _id
+        username
+      }
+      messages {
+        _id
+        content
+        readStatus
+        senderId {
+          _id
+        }
+      }
+    }
+  }
+`;
 
-// export const SEND_MESSAGE = gql`
-//   mutation sendMessage($chatId: ID!, $senderId: ID!, $content: String!) {
-//     sendMessage(chatId: $chatId, senderId: $senderId, content: $content) {
-//       _id
-//       senderId {
-//         _id
-//         username
-//       }
-//       content
-//       readStatus
-//     }
-//   }
-// `;
+export const SEND_MESSAGE = gql`
+  mutation sendMessage($chatId: ID!, $senderId: ID!, $content: String!) {
+    sendMessage(chatId: $chatId, senderId: $senderId, content: $content) {
+      _id
+      senderId {
+        _id
+      }
+      content
+      readStatus
+    }
+  }
+`;

@@ -13,27 +13,31 @@ const resolvers = {
         .populate("pendingFriends");
     },
     user: async (parent, { username }, context) => {
-      console.log("userQuery:", context);
       return await User.findOne({ username })
         .populate("friends")
         .populate("pendingFriends");
     },
     //come back and refactor with context
-    userChats: async (parent, { userId }, context) => {
+    userChats: async (parent, { userId, friendId }, context) => {
       try {
-        const chats = await Chat.find({
-          $or: [{ user1Id: userId }, { user2Id: userId }],
-        }).populate("messages");
-        return chats;
+        const chat = await Chat.findOne({
+          $or: [
+            { $and: [{ user1Id: userId }, { user2Id: friendId }] },
+            { $and: [{ user1Id: friendId }, { user2Id: userId }] },
+          ],
+        }).populate(
+          "user1Id user2Id messages messages.senderId messages.receiverId"
+        );
+        return chat;
       } catch (err) {
         throw err;
       }
     },
-    me: async (parent, args, context) => {
-      return await User.findById(context.user._id)
-        .populate("friends")
-        .populate("pendingFriends");
-    },
+    // me: async (parent, args, context) => {
+    //   return await User.findById(context.user._id)
+    //     .populate("friends")
+    //     .populate("pendingFriends");
+    // },
   },
 
   Mutation: {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import io from "socket.io-client";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -6,15 +6,32 @@ import Button from "@mui/material/Button";
 import GiphySearchBar from "../components/giphySearchBar";
 import EmojiPicker from "emoji-picker-react"; // remember there's a dark theme for emmoji picker!
 
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_USER_CHATS } from "../utils/queries";
+import { SEND_MESSAGE } from "../utils/mutations";
+import auth from "../utils/auth";
+import { SelectedFriendContext } from "../components/SelectedFriendContext";
+
 // Madeline to do: add logic so chat screen automatically scrolls/jumps down when new message is sent
 
 export default function Home() {
+  const [chat, setChat] = useState(null);
+  const [chatId, setChatId] = useState(null);
+  const { selectedFriendId } = useContext(SelectedFriendContext);
+  const profile = auth.getProfile();
+  const [sendMessageMutation] = useMutation(SEND_MESSAGE);
+  const { loading, error, data } = useQuery(QUERY_USER_CHATS, {
+    variables: { userId: profile.data._id, friendId: selectedFriendId },
+    skip: !selectedFriendId,
+  });
+
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showGiphySearch, setShowGiphySearch] = useState(false);
+
   // hooks for socket instance, current message input, and array of messages
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+
   // effect hook to set up socket connection and message event listener
   useEffect(() => {
     // create socket connection to server
@@ -22,11 +39,38 @@ export default function Home() {
     setSocket(newSocket);
     //listens for message event from server
     newSocket.on("message", (message) => {
-      setMessages((messages) => [...messages, message]);
+      setChat((chat) => ({
+        ...chat,
+        messages: [
+          ...chat.messages,
+          {
+            senderId: message.senderId._id,
+            receiverId: message.receiverId._id,
+            content: message.content,
+          },
+        ],
+      }));
     });
 
     return () => newSocket.close();
   }, [setSocket]);
+
+  useEffect(() => {
+    setChat(null);
+    setChatId(null);
+    if (!loading && data?.userChats?.messages) {
+      const updatedChat = {
+        ...data.userChats,
+        messages: data.userChats.messages.map((msg) => ({
+          ...msg,
+          senderId: msg.senderId?._id,
+          receiverId: msg.receiverId?._id,
+        })),
+      };
+      setChat(updatedChat);
+      setChatId(data.userChats._id);
+    }
+  }, [loading, data]);
 
   const handleToggleGiphySearch = () => {
     setShowGiphySearch((prevShow) => !prevShow);
@@ -34,22 +78,51 @@ export default function Home() {
 
   const handleSelectGif = (url) => {
     const gifElement = <img alt="Selected GIF" src={url} />;
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { senderId: "1", receiverId: "2", content: gifElement },
-    ]);
+    setChat((chat) => ({
+      ...chat,
+      messages: [
+        ...chat.messages,
+        { senderId: "1", receiverId: "2", content: gifElement },
+      ],
+    }));
   };
 
-  const sendMessage = (e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
-    //If theres a socket connection, emit a message event with the current message input
     if (socket) {
       socket.emit("message", {
-        senderId: "1",
-        receiverId: "2",
+        senderId: profile.data._id,
+        receiverId: selectedFriendId,
         content: message,
       });
-      setMessage("");
+
+      try {
+        const { data } = await sendMessageMutation({
+          variables: {
+            chatId,
+            senderId: profile.data._id,
+            content: message,
+          },
+        });
+
+        if (data) {
+          // update chat in state
+          setChat((chat) => ({
+            ...chat,
+            messages: [
+              ...chat.messages,
+              {
+                senderId: profile.data._id,
+                receiverId: selectedFriendId,
+                content: message,
+              },
+            ],
+          }));
+        }
+        setMessage("");
+      } catch (error) {
+        console.log("Error");
+      }
     }
   };
 
@@ -70,18 +143,16 @@ export default function Home() {
         <p id="chatHeaderText">Chat with (Username)</p>
       </div>
       <div id="chatScreen">
-        {messages.map((message, i) => (
+        {chat?.messages?.map((message, i) => (
           <div
             key={i}
-            id={message.senderId === "1" ? "sentChat" : "receivedChat"}
+            id={
+              message.senderId === profile.data._id
+                ? "sentChat"
+                : "receivedChat"
+            }
           >
-            <p id="messageContent">
-              {message.content}{" "}
-              <p id="fromMessageText">
-                From User{message.senderId}, to User
-                {message.receiverId}
-              </p>
-            </p>
+            <p>{message.content}</p>
           </div>
         ))}
       </div>

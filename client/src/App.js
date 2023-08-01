@@ -8,10 +8,12 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { SelectedFriendProvider } from "./components/SelectedFriendContext";
 
 import Toolbar from "./components/toolbar";
 import Sidebar from "./components/sidebar";
 import Home from "./pages/Home";
+import Landing from "./pages/Landing";
 import UserSearch from "./components/UserSearch";
 import FriendRequests from "./components/FriendRequests";
 // import AddAvatar from "./components/addAvatar";
@@ -40,25 +42,28 @@ const client = new ApolloClient({
 function App() {
   return (
     <div style={{ backgroundImage: `url(${background})` }}>
-      <ApolloProvider client={client}>
-        <Router>
-          <Toolbar />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <div id="homeSidebarContainer">
-                  <Home />
-                  <Sidebar />
-                </div>
-              }
-            />
-            <Route path="/search" element={<UserSearch />} />
-            <Route path="/friend-requests" element={<FriendRequests />} />
-            <Route path="/avatar-generator" element={<AvatarGenerator />} />
-          </Routes>
-        </Router>
-      </ApolloProvider>
+      <SelectedFriendProvider>
+        <ApolloProvider client={client}>
+          <Router>
+            <Toolbar />
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route
+                path="/home"
+                element={
+                  <div id="homeSidebarContainer">
+                    <Home />
+                    <Sidebar />
+                  </div>
+                }
+              />
+              <Route path="/search" element={<UserSearch />} />
+              <Route path="/friend-requests" element={<FriendRequests />} />
+              <Route path="/avatar-generator" element={<AvatarGenerator />} />
+            </Routes>
+          </Router>
+        </ApolloProvider>
+      </SelectedFriendProvider>
     </div>
   );
 }

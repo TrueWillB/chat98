@@ -61,23 +61,20 @@ export const QUERY_USER_BY_ID = gql`
 `;
 
 export const QUERY_USER_CHATS = gql`
-  query userChats($username: String!) {
-    userChats(username: $username) {
+  query userChats($userId: ID!, $friendId: ID!) {
+    userChats(userId: $userId, friendId: $friendId) {
       _id
       user1Id {
         _id
-        username
       }
       user2Id {
         _id
-        username
       }
       messages {
-        _id
-        senderId
-        receiverId
+        senderId {
+          _id
+        }
         content
-        readStatus
       }
     }
   }
