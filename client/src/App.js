@@ -1,4 +1,5 @@
 import React from "react";
+import background from "./background.png";
 import {
   ApolloClient,
   InMemoryCache,
@@ -38,25 +39,27 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <Toolbar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div id="homeSidebarContainer">
-                <Home />
-                <Sidebar />
-              </div>
-            }
-          />
-          <Route path="/search" element={<UserSearch />} />
-          <Route path="/friend-requests" element={<FriendRequests />} />
-          <Route path="/avatar-generator" element={<AvatarGenerator />} />
-        </Routes>
-      </Router>
-    </ApolloProvider>
+    <div style={{ backgroundImage: `url(${background})` }}>
+      <ApolloProvider client={client}>
+        <Router>
+          <Toolbar />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div id="homeSidebarContainer">
+                  <Home />
+                  <Sidebar />
+                </div>
+              }
+            />
+            <Route path="/search" element={<UserSearch />} />
+            <Route path="/friend-requests" element={<FriendRequests />} />
+            <Route path="/avatar-generator" element={<AvatarGenerator />} />
+          </Routes>
+        </Router>
+      </ApolloProvider>
+    </div>
   );
 }
 

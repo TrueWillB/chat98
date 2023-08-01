@@ -12,6 +12,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "emoji-picker-react": "^4.4.10",
     "feather-icons": "^4.29.0",
     "feather-icons-react": "^0.6.2",
     "graphql": "^16.7.1",

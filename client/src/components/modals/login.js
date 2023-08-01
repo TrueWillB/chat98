@@ -101,8 +101,6 @@ const Login = () => {
     border: "2px solid black",
     boxShadow: 24,
     width: 400,
-    // marginBottom: 20,
-    // height: 400,
   };
 
   return (
@@ -110,12 +108,12 @@ const Login = () => {
       <div id="modalContainer">
         {Auth.loggedIn() || addUserData ? (
           // {loginData || addUserData ? (
-          <Button variant="contained" onClick={Auth.logout}>
+          <Button class="homeButtons" onClick={Auth.logout}>
             Logout
           </Button>
         ) : (
           <div id="loginModalContents">
-            <Button variant="contained" onClick={handleOpenLoginModal}>
+            <Button class="homeButtons" onClick={handleOpenLoginModal}>
               Login
             </Button>
             <Modal

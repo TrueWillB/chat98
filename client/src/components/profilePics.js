@@ -25,7 +25,6 @@ const FriendsList = ({ friendProfilePicUrl }) => {
           src={userProfilePicUrl || "https://via.placeholder.com/150"}
           alt="Your Profile Pic"
         />
-        <input type="file" onChange={handleUserProfilePicChange} />
       </div>
     </div>
   );

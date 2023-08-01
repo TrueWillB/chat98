@@ -40,8 +40,14 @@ const Sidebar = () => {
   // will be replacing "userPlus" button with something nicer
   return (
     <div id="sidebarContainer">
+      <div id="sidebarHeader" className="chatHeader">
+        <button className="homeButtons" id="sidebarXButton">
+          ×
+        </button>
+        <p id="chatHeaderText">Friends</p>
+      </div>
       {showBackButton && (
-        <div class="searchbarContainer">
+        <div className="searchbarContainer">
           <button className="sidebarBackButton" onClick={handleBackButtonClick}>
             <X size={16} />
           </button>

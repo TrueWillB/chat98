@@ -43,13 +43,18 @@ const FriendRequests = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
+  const handleBackButtonClick = () => {
+    window.history.back();
+  };
+
   return (
     <div>
+      <button onClick={handleBackButtonClick}>Back</button>
       <h2>Friend Requests</h2>
       {data?.user.pendingFriends.length > 0 ? (
         data.user.pendingFriends.map((friend) => (
           <div key={friend._id}>
-            <p>{friend.username} sent you a friend request.</p>
+            <p>{friend.username} sent you a friend request!</p>
             <button onClick={() => handleApproveFriend(friend._id)}>
               Approve
             </button>

@@ -4,10 +4,13 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import GiphySearchBar from "../components/giphySearchBar";
+import EmojiPicker from "emoji-picker-react"; // remember there's a dark theme for emmoji picker!
 
 // Madeline to do: add logic so chat screen automatically scrolls/jumps down when new message is sent
 
 export default function Home() {
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showGiphySearch, setShowGiphySearch] = useState(false);
   // hooks for socket instance, current message input, and array of messages
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
@@ -24,6 +27,10 @@ export default function Home() {
 
     return () => newSocket.close();
   }, [setSocket]);
+
+  const handleToggleGiphySearch = () => {
+    setShowGiphySearch((prevShow) => !prevShow);
+  };
 
   const handleSelectGif = (url) => {
     const gifElement = <img alt="Selected GIF" src={url} />;
@@ -46,45 +53,72 @@ export default function Home() {
     }
   };
 
+  const handleEmojiButtonClick = () => {
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+
   return (
-    <div id="chatScreen">
-      <Card
-        sx={{
-          width: "95%",
-          border: 0.3,
-          borderColor: "#e5e5e5",
-          maxHeight: "75vh",
-          margin: "auto",
-          overflowY: "auto",
-        }}
-      >
+    <div id="chatContainer">
+      <div id="chatHeader" class="chatHeader">
+        <Button
+          class="homeButtons"
+          id="chatXButton"
+          onClick={() => console.log("Button clicked")}
+        >
+          ×
+        </Button>
+        <p id="chatHeaderText">Chat with (Username)</p>
+      </div>
+      <div id="chatScreen">
         {messages.map((message, i) => (
           <div
             key={i}
             id={message.senderId === "1" ? "sentChat" : "receivedChat"}
           >
-            <p>
-              From: User {message.senderId} To: User {message.receiverId} :{" "}
-              {message.content}
+            <p id="messageContent">
+              {message.content}{" "}
+              <p id="fromMessageText">
+                From User{message.senderId}, to User
+                {message.receiverId}
+              </p>
             </p>
           </div>
         ))}
-      </Card>
+      </div>
       <div id="textareaContainer">
         <textarea
           id="chatTextarea"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <div id="textareaButtons">
-          <CardActions style={{ flexDirection: "column", margin: "8" }}>
-            <Button variant="contained" onClick={sendMessage}>
-              Send
-            </Button>
-          </CardActions>
+        <div id="textareaSendButton">
+          <Button class="homeButtons" onClick={sendMessage}>
+            Send
+          </Button>
+          <div>
+            {" "}
+            <div id="textareaButtons">
+              <button class="homeButtons" onClick={handleEmojiButtonClick}>
+                Emoji
+              </button>
+              {showEmojiPicker && (
+                <div
+                  className="emojiPickerContainer"
+                  style={{ marginBottom: 1 }}
+                >
+                  <EmojiPicker height={400} width={500} />
+                </div>
+              )}
+            </div>
+            <button class="homeButtons" onClick={handleToggleGiphySearch}>
+              GIFs
+            </button>
+            {showGiphySearch && (
+              <GiphySearchBar onSelectGif={handleSelectGif} />
+            )}
+          </div>
         </div>
       </div>
-      <GiphySearchBar onSelectGif={handleSelectGif} />
     </div>
   );
 }
