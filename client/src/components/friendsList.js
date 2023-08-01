@@ -32,9 +32,6 @@ const FriendsList = (props) => {
   const [sendFriendRequest] = useMutation(SEND_FRIEND_REQUEST);
 
   const handleAddFriend = async (friendIdToAdd) => {
-    console.log("clicked friend add button");
-    console.log("friendIdToAdd: ", friendIdToAdd);
-    console.log("currentUserId: ", currentUserId);
     try {
       await sendFriendRequest({
         variables: { senderId: currentUserId, receiverId: friendIdToAdd },
@@ -45,8 +42,6 @@ const FriendsList = (props) => {
       console.log(err);
     }
   };
-  console.log("Here's list of all users");
-  console.log(userListData?.users);
 
   // const [removeFriend] = useMutation(REMOVE_FRIEND);
   //
