@@ -42,7 +42,7 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
-    addAvatar(username: String!, avatar: String!): User
+    addAvatar(avatar: String!): User
     login(email: String!, password: String!): Auth
     removeFriend(username: String!, friendId: ID!): User
     sendFriendRequest(senderId: ID!, receiverId: ID!): User
