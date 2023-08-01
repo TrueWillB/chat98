@@ -13,6 +13,7 @@ const resolvers = {
         .populate("pendingFriends");
     },
     user: async (parent, { username }, context) => {
+      console.log("userQuery:", context);
       return await User.findOne({ username })
         .populate("friends")
         .populate("pendingFriends");
@@ -36,6 +37,19 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    addAvatar: async (parent, { username, avatar }) => {
+      try {
+        const updatedUser = await User.findOneAndUpdate(
+          ({ username }, { $set: { avatar } }, { new: true })
+        );
+        if (!updatedUser) {
+          throw new Error("User not found!");
+        }
+        return updatedUser;
+      } catch (err) {
+        throw err;
+      }
+    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -50,6 +64,7 @@ const resolvers = {
       }
 
       const token = signToken(user);
+      console.log({ token, user });
 
       return { token, user };
     },
@@ -172,7 +187,8 @@ const resolvers = {
         throw err;
       }
     },
-    sendMessage: async (parent, { chatId, senderId, content }) => {
+    sendMessage: async (parent, { chatId, senderId, content }, context) => {
+      console.log(`sendMessage resolver: ${context}`);
       const newMessage = await Message.create({
         senderId,
         content,

@@ -67,7 +67,7 @@ const Login = () => {
       });
 
       Auth.login(data.addUser.token);
-      handleClose();
+      window.location.replace("/avatar-generator");
       console.log("login success!");
     } catch (e) {
       console.error(e);
@@ -108,7 +108,8 @@ const Login = () => {
   return (
     <React.Fragment>
       <div id="modalContainer">
-        {loginData || addUserData ? (
+        {Auth.loggedIn() || addUserData ? (
+          // {loginData || addUserData ? (
           <Button variant="contained" onClick={Auth.logout}>
             Logout
           </Button>
