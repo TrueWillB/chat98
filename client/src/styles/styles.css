@@ -4,7 +4,7 @@
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #d9d9d9 #C0C0C0;
+  scrollbar-color: #d9d9d9 #c0c0c0;
 }
 
 *::-webkit-scrollbar {
@@ -29,7 +29,7 @@
 
 body {
   /*background-color: #008080;*/
-  background-color: #B68ADB;
+  background-color: #b68adb;
   margin: 0%;
   text-align: center;
   margin: 0%;
@@ -49,7 +49,7 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: #C0C0C0;
+  background-color: #c0c0c0;
   box-shadow: inset 1px -1px 0px 3px #b2b0b0db;
 }
 
@@ -58,7 +58,8 @@ body {
   appearance: none;
   background-color: #e9e9e9;
   border-width: 0;
-  box-shadow: inset -1px -1px #0a0a0a, inset 1px 3px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 3px #fff, inset -2px -2px grey,
+    inset 2px 2px #dfdfdf;
   box-sizing: border-box;
   color: #3c3c3c;
   text-shadow: 1px 3px 2px #ffffff;
@@ -75,7 +76,7 @@ body {
   position: relative;
   text-align: left;
   text-decoration: none;
-  transition: box-shadow .15s, transform .15s;
+  transition: box-shadow 0.15s, transform 0.15s;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -88,7 +89,7 @@ body {
   outline: 1px dotted #000000;
   outline-offset: -4px;
 }
-  
+
 .homeButtons:hover {
   transform: translateY(-2px);
 }
@@ -97,7 +98,6 @@ body {
   margin-right: 1%;
   margin-left: 3%;
 }
-  
 
 #toolbarButtonsLeft {
   display: flex;
@@ -108,7 +108,6 @@ body {
 #toolbarButtonsRight {
   margin-right: 1%;
 }
-
 
 /* rename to chatAndSidebarContainer! */
 
@@ -133,9 +132,10 @@ body {
   font-family: "JetBrains Mono", monospace;
   margin: 0%;
   padding: 1%;
-  background-color: #C0C0C0;
+  background-color: #c0c0c0;
   text-shadow: 1px 1px 1px #ffffff;
-  box-shadow: inset -1px -2px #B4B2B2, inset 1px 3px #ebebeb, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  box-shadow: inset -1px -2px #b4b2b2, inset 1px 3px #ebebeb,
+    inset -2px -2px grey, inset 2px 2px #dfdfdf;
 }
 
 #sidebarHeader {
@@ -151,9 +151,10 @@ body {
 }
 
 #chatContainer:hover #chatHeader {
-background-color: #bbbbbb;
+  background-color: #bbbbbb;
   text-shadow: 1px 1px 1px #ffffff;
-  box-shadow: inset -1px -2px #abaaaa, inset 1px 3px #e0e0e0, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  box-shadow: inset -1px -2px #abaaaa, inset 1px 3px #e0e0e0,
+    inset -2px -2px grey, inset 2px 2px #dfdfdf;
 }
 
 #chatHeaderText {
@@ -167,7 +168,7 @@ background-color: #bbbbbb;
 
 #chatScreen {
   height: 90%;
-  background-color: #E9E9E9;
+  background-color: #e9e9e9;
   scrollbar-width: none;
   -ms-overflow-style: none;
   flex: 1;
@@ -217,7 +218,7 @@ background-color: #bbbbbb;
 #textareaContainer {
   display: flex;
   align-items: center;
-  background-color: #E9E9E9;
+  background-color: #e9e9e9;
   height: 30vh;
 }
 
@@ -230,7 +231,6 @@ background-color: #bbbbbb;
 
 #textareaButtons {
   display: inline;
-
 }
 
 #chatTextarea {
@@ -243,16 +243,15 @@ background-color: #bbbbbb;
   width: 85%;
   box-sizing: border-box;
   /*border: 1px dotted #919191;*/
-  border: 3px solid #DEDEDE;
+  border: 3px solid #dedede;
   background-color: #ffffff;
   font-size: 2.5vh;
   padding: 2%;
   font-family: "JetBrains Mono", monospace;
 }
 
-
 #sidebarContainer {
-  background-color: #E9E9E9;
+  background-color: #e9e9e9;
   margin-right: 3%;
   margin-left: 3%;
   height: 100vh;
@@ -289,9 +288,8 @@ background-color: #bbbbbb;
 }
 
 .sidebarBackButton:hover {
-  color:#008080;
+  color: #008080;
 }
-
 
 .sidebarFriendButton {
   background-color: transparent;
@@ -320,12 +318,12 @@ background-color: #bbbbbb;
   width: 200px;
   height: 200px;
   object-fit: cover;
-  border-bottom: 4px solid #C0C0C0;
+  border-bottom: 4px solid #c0c0c0;
 }
 
 .userPhoto:hover {
   opacity: 0.8;
-  border-bottom: 4px solid #C0C0C0;
+  border-bottom: 4px solid #c0c0c0;
 }
 
 /* temporary */
@@ -351,4 +349,26 @@ input[type="file"] {
 
 .bold-text {
   font-weight: bold;
+}
+
+.gifSearchContainer {
+  border: 3px solid #dedede;
+  background-color: #ffffff;
+}
+
+.gifContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.gifItem {
+  flex: 0 0 calc(33.33% - 10px);
+  margin: 5px;
+  list-style: none;
+}
+
+.gifImg {
+  width: 100%;
+  height: auto;
 }
