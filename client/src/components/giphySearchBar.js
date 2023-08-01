@@ -18,7 +18,15 @@ function GiphySearchBar(props) {
     setQuery("");
   };
   return (
-    <div className="gifSearchContainer">
+    <div
+      className="gifSearchContainer"
+      style={{
+        width: "18.75rem",
+        height: "8.5rem",
+        overflow: "hidden",
+        overflowY: "scroll",
+      }}
+    >
       <div id="searchBar">
         <input
           type="text"
@@ -37,16 +45,17 @@ function GiphySearchBar(props) {
 
 function ResultList(props) {
   return (
-    <ul className="list-group">
+    <ul className="gifContainer">
       {props.results.map((result) => (
         <li
-          className="list-group-item"
+          style={{ listStyle: "none", padding: 0 }}
+          className="gifItem"
           key={result.id}
           onClick={() => props.onSelectGif(result.images.original.url)}
         >
           <img
             alt={result.title}
-            className="img-fluid"
+            className="gifImg"
             src={result.images.original.url}
           />
         </li>
