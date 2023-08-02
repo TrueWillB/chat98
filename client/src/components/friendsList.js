@@ -70,58 +70,34 @@ const FriendsList = () => {
   if (error || errorAllUsers) return <p>Error :</p>;
 
   return (
-    <React.Fragment>
-      <Tabs
-        value={tabValue}
-        onChange={(event, newValue) => setTabValue(newValue)}
-      >
-        <Tab label="Friends Search" />
-        <Tab label="User Search" />
-      </Tabs>
-      {tabValue === 0 && (
-        <div>
-          {data?.user?.friends?.map((friend) => (
-            <div key={friend._id} className="userList">
-              <span
-                className="username"
-                onClick={() => handleStartChat(friend._id)}
-              >
-                {friend.username}
-              </span>
+    <div>
+      <form>
+        <label>
+          Search usernames
+          <input
+            type="text"
+            value={userSearch}
+            onChange={(e) => setUserSearch(e.target.value)}
+          />
+        </label>
+        {allUserData.users
+          .filter((user) =>
+            user.username.toLowerCase().includes(userSearch.toLowerCase())
+          )
+          .map((user) => (
+            <div key={user._id} className="userList">
+              <span className="username">{user.username}</span>
               <button
+                type="button"
                 className="friendButton"
-                onClick={() => handleRemoveFriend(friend._id)}
+                onClick={() => handleAddFriend(user._id)}
               >
-                <UserMinus stroke="red" size={16} />
+                <UserPlus stroke="blue" size={16} />
               </button>
             </div>
           ))}
-        </div>
-      )}
-      {tabValue === 1 && (
-        <div>
-          <TextField
-            label="Search Usernames"
-            onChange={(e) => setUserSearch(e.target.value)}
-          />
-          {allUserData.users
-            .filter((user) =>
-              user.username.toLowerCase().includes(userSearch.toLowerCase())
-            )
-            .map((user) => (
-              <div key={user._id} className="userList">
-                <span className="username">{user.username}</span>
-                <button
-                  className="friendButton"
-                  onClick={() => handleAddFriend(user._id)}
-                >
-                  <UserPlus stroke="blue" size={16} />
-                </button>
-              </div>
-            ))}
-        </div>
-      )}
-    </React.Fragment>
+      </form>
+    </div>
   );
 };
 

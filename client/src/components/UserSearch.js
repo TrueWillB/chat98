@@ -40,7 +40,6 @@ const UserSearch = () => {
         <input name="search" type="text" placeholder="Search derek's" />
         <button type="submit">Search</button>
       </form>
-
       {loading && <p>Loading...</p>}
       {error && <p>Error :(</p>}
       {data?.user && (
