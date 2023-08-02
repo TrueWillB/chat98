@@ -18,15 +18,16 @@ const Toolbar = () => {
       {!Auth.loggedIn(true) ? (
         <div></div>
       ) : (
-        <div>
-          <Button className="homeButtons" component={Link} to="/home">
+        <div id="toolbarButtonsRight">
+          <Button
+            class="homeButtons"
+            id="homeButton"
+            component={Link}
+            to="/home"
+          >
             Home
           </Button>
-          <Button
-            className="homeButtons"
-            component={Link}
-            to="/friend-requests"
-          >
+          <Button class="homeButtons" component={Link} to="/friend-requests">
             Requests
           </Button>
         </div>
