@@ -37,7 +37,7 @@ const UserSearch = () => {
   return (
     <div>
       <form onSubmit={handleSearch}>
-        <input name="search" type="text" placeholder="Search for a user" />
+        <input name="search" type="text" placeholder="Search derek's" />
         <button type="submit">Search</button>
       </form>
 

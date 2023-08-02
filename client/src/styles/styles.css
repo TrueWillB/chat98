@@ -53,13 +53,13 @@ body {
   box-shadow: inset 1px -1px 0px 3px #b2b0b0db;
 }
 
-.homeButtons {
+.homeButtons, .internalModalButtons {
   align-items: center;
   appearance: none;
   background-color: #e9e9e9;
   border-width: 0;
   box-shadow: inset -1px -1px #0a0a0a, inset 1px 3px #fff, inset -2px -2px grey,
-    inset 2px 2px #dfdfdf;
+  inset 2px 2px #dfdfdf;
   box-sizing: border-box;
   color: #3c3c3c;
   text-shadow: 1px 3px 2px #ffffff;
@@ -85,7 +85,7 @@ body {
   font-size: 18px;
 }
 
-.homeButtons:focus {
+.homeButtons:focus, .internalModalButtons:focus {
   outline: 1px dotted #000000;
   outline-offset: -4px;
 }
@@ -94,8 +94,95 @@ body {
   transform: translateY(-2px);
 }
 
+
+/* ----------- MODAL ------------- */
+
+/* affects buttons in toolbar */
 #modalContainer {
   margin-right: 1%;
+  margin-left: 3%;
+}
+
+#loginModal {
+  text-align: center;
+  margin-bottom: 6%;
+}
+
+.parentModalHeader {
+  display: flex;
+  flex-direction: row;
+  background-color: #c0c0c0;
+  text-shadow: 1px 1px 1px #ffffff;
+  box-shadow: inset -1px -2px #b4b2b2, inset 1px 3px #ebebeb,
+  inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  margin-bottom: 5%;
+}
+
+.internalModalButtons {
+  background-color: #C0C0C0;
+  text-shadow: 1px 1px 1px #ffffff;
+  box-shadow: inset -1px -2px #b4b2b2, inset 1px 3px #ebebeb,
+    inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  color: #3c3c3c;
+}
+
+#internalModalButtons {
+  color: #252525;
+}
+
+.labelAndFieldContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 4%;
+  margin-left: 4%;
+  font-family: monospace;
+  text-shadow: 1px 1px 1px #ffffff;
+  color: #6b6b6b;
+}
+
+.MuiTextField-root {
+  background-color: #ffffff;
+  border-radius: 0%;
+  margin-bottom: 3%
+}
+
+.MuiOutlinedInput-root {
+  font-family: monospace;
+}
+
+.modalErrors {
+  font-size: 2.4vh;
+  padding: 5%;
+  font-family: monospace;
+  color: #6b6b6b;
+  text-shadow: 1px 1px 1px #ffffff;
+}
+
+.passwordRequirementMessage {
+  margin-bottom: 3%;
+}
+
+#passwordCheckContainer {
+  margin-top: 4%;
+  margin-bottom: 4%;
+  font-size: 2.4vh;
+  font-family: monospace;
+  color: #6b6b6b;
+  text-shadow: 1px 1px 1px #ffffff;
+}
+
+.passwordRequirementMessage {
+  display: flex;
+  flex-direction: column;
+  color: #8a8a8a;
+}
+
+.passwordRequirements {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 3%;
   margin-left: 3%;
 }
 
@@ -110,7 +197,6 @@ body {
 }
 
 /* rename to chatAndSidebarContainer! */
-
 #homeSidebarContainer {
   display: flex;
   justify-content: space-between;
@@ -129,7 +215,7 @@ body {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  font-family: "JetBrains Mono", monospace;
+  font-family: monospace;
   margin: 0%;
   padding: 1%;
   background-color: #c0c0c0;
@@ -142,12 +228,6 @@ body {
   display: flex;
   flex-direction: flex-start;
   align-items: center;
-}
-
-#sidebarXButton {
-  margin: 1%;
-  height: 5%;
-  width: 1%;
 }
 
 #chatContainer:hover #chatHeader {
@@ -189,7 +269,6 @@ body {
   width: fit-content;
   height: fit-content;
   overflow: hidden;
-  /*border-radius: 20px;*/
   padding: 1%;
   margin: 1.5%;
 }
@@ -282,13 +361,8 @@ body {
 }
 
 .sidebarBackButton {
-  border: none;
-  background-color: none;
-  color: #a8a8a8;
-}
-
-.sidebarBackButton:hover {
-  color: #008080;
+  height: 5%;
+  width: 1%;
 }
 
 .sidebarFriendButton {
@@ -342,14 +416,7 @@ input[type="file"] {
   margin: 1%;
 }
 
-/* =====passwordChecker.js===== */
-#password-requirement-list {
-  list-style-type: none;
-}
 
-.bold-text {
-  font-weight: bold;
-}
 
 .gifSearchContainer {
   border: 3px solid #dedede;

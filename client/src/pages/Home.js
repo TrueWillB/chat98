@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import io from "socket.io-client";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -31,7 +31,8 @@ export default function Home() {
   // hooks for socket instance, current message input, and array of messages
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
-
+  const [messages, setMessages] = useState([]);
+  const chatScreenRef = useRef(null);
   // effect hook to set up socket connection and message event listener
   useEffect(() => {
     // create socket connection to server
@@ -129,6 +130,13 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    const chatScreenElement = chatScreenRef.current;
+    if (chatScreenElement) {
+      chatScreenElement.scrollTop = chatScreenElement.scrollHeight;
+    }
+  }, [messages]);
+
   const handleEmojiButtonClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
@@ -145,8 +153,8 @@ export default function Home() {
         </Button>
         <p id="chatHeaderText">Chat with (Username)</p>
       </div>
-      <div id="chatScreen">
-        {chat?.messages?.map((message, i) => (
+      <div id="chatScreen" ref={chatScreenRef}>
+        {messages.map((message, i) => (
           <div
             key={i}
             id={

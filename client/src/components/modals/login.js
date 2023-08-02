@@ -97,9 +97,8 @@ const Login = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor: "white",
-    border: "2px solid black",
-    boxShadow: 24,
+    backgroundColor: "#dcdbdb",
+    borderBottom: "4px solid #AAA9A9",
     width: 400,
   };
 
@@ -131,97 +130,100 @@ const Login = () => {
               >
                 {loginModalOpen && (
                   <div id="loginModal">
-                    <h2 id="parent-modal-title">Chat 98 Login</h2>
-                    <TextField
-                      required
-                      id="outlined-basic"
-                      label="email"
-                      name="email"
-                      type="email"
-                      value={loginFormState.email}
-                      variant="outlined"
-                      onChange={handleLoginChange}
-                    />
-                    <TextField
-                      required
-                      id="outlined-basic"
-                      label="password"
-                      name="password"
-                      type="password"
-                      value={loginFormState.password}
-                      variant="outlined"
-                      onChange={handleLoginChange}
-                    />
-                    <div>
+                    <div class="parentModalHeader">
                       <Button
-                        className="LoginModBut"
-                        variant="contained"
+                        class="internalModalButtons"
+                        id="internalModalButtons"
                         onClick={handleLogin}
                       >
                         Login
                       </Button>
                       <Button
-                        className="LoginModBut"
-                        variant="contained"
+                        Button
+                        class="internalModalButtons"
+                        id="internalModalButtons"
                         onClick={handleOpenSignupModal}
                       >
-                        Click Here to Signup
+                        Sign up
                       </Button>
                     </div>
+                    <div class="labelAndFieldContainer">
+                      <span class="modalLabels">Email:</span>{" "}
+                      <TextField
+                        required
+                        name="email"
+                        type="email"
+                        value={loginFormState.email}
+                        onChange={handleLoginChange}
+                      />{" "}
+                    </div>
+                    <div class="labelAndFieldContainer">
+                      <span class="modalLabels">Password:</span>{" "}
+                      <TextField
+                        name="password"
+                        type="password"
+                        value={loginFormState.password}
+                        onChange={handleLoginChange}
+                      />
+                    </div>
+                    <div></div>
                   </div>
                 )}
                 {signupModalOpen && (
                   <div id="signupModal">
-                    <h2 id="parent-modal-title">Signup</h2>
-                    <TextField
-                      required
-                      id="outlined-basic"
-                      label="username"
-                      name="username"
-                      type="username"
-                      value={signUpFormState.username}
-                      variant="outlined"
-                      onChange={handleSignupChange}
-                    />
-                    <TextField
-                      required
-                      id="outlined-basic"
-                      label="email"
-                      name="email"
-                      type="email"
-                      value={signUpFormState.email}
-                      variant="outlined"
-                      onChange={handleSignupChange}
-                    />
-                    <TextField
-                      required
-                      id="outlined-basic"
-                      label="password"
-                      name="password"
-                      type="password"
-                      value={signUpFormState.password}
-                      variant="outlined"
-                      onChange={handleSignupChange}
-                    />
-                    <PassCheck value={signUpFormState.password} />
-                    <Button
-                      className="LoginModBut"
-                      variant="contained"
-                      onClick={handleSignup}
-                    >
-                      Signup
-                    </Button>
-                    <Button
-                      className="LoginModBut"
-                      variant="contained"
-                      onClick={handleOpenLoginModal}
-                    >
-                      Back to Login
-                    </Button>
+                    <div class="parentModalHeader">
+                      <Button
+                        Button
+                        class="internalModalButtons"
+                        id="internalModalButtons"
+                        onClick={handleOpenLoginModal}
+                      >
+                        Back to Login
+                      </Button>
+                      <Button
+                        Button
+                        class="internalModalButtons"
+                        id="internalModalButtons"
+                        onClick={handleSignup}
+                      >
+                        Sign up
+                      </Button>
+                    </div>
+                    <div class="labelAndFieldContainer">
+                      <span class="modalLabels">Username</span>
+                      <TextField
+                        required
+                        name="username"
+                        type="username"
+                        value={signUpFormState.username}
+                        variant="outlined"
+                        onChange={handleSignupChange}
+                      />
+                    </div>
+                    <div class="labelAndFieldContainer">
+                      <span class="modalLabels">Email</span>
+                      <TextField
+                        required
+                        name="email"
+                        type="email"
+                        value={signUpFormState.email}
+                        onChange={handleSignupChange}
+                      />
+                    </div>
+                    <div class="labelAndFieldContainer">
+                      <span class="modalLabels">Password</span>
+                      <TextField
+                        required
+                        name="password"
+                        type="password"
+                        value={signUpFormState.password}
+                        onChange={handleSignupChange}
+                      />
+                    </div>
+                    {loginError && <div>{loginError.message}</div>}
+                    {addUserError && <div>{addUserError.message}</div>}
                   </div>
                 )}
-                {loginError && <div>{loginError.message}</div>}
-                {addUserError && <div>{addUserError.message}</div>}
               </Box>
             </Modal>
           </div>
@@ -232,3 +234,14 @@ const Login = () => {
 };
 
 export default Login;
+
+/*  
+Madeline's little wishlist close modal x
+
+<Button
+className="internalModalButtons"
+id="closeModalX"
+onClick={handleClose}
+>x</Button>
+
+                      */
