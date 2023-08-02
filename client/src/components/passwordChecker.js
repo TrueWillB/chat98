@@ -6,25 +6,25 @@ import React, { useState } from "react";
 
 const PassCheck = ({ value }) => {
   const pwPropMet = {
-    length: value.length >= 8,
-    upper: /[A-Z]/.test(value),
-    lower: /[a-z]/.test(value),
-    number: /[0-9]/.test(value),
-    special: /[$^+=!*()@%&]/.test(value),
+    "8 characters:": value.length >= 8,
+    "1 special character:": /[$^+=!*()@%&]/.test(value),
+    "1 uppercase:": /[A-Z]/.test(value),
+    "1 lowercase:": /[a-z]/.test(value),
+    "1 number:": /[0-9]/.test(value),
   };
 
   return (
     <React.Fragment>
-      <div>
-        <ul id="password-requirement-list">
-          {" "}
-          <span className="bold-text">Password requires at least:</span>
-          <li>8 characters {pwPropMet.length ? "✅" : "❌"}</li>
-          <li>1 uppercase character {pwPropMet.upper ? "✅" : "❌"}</li>
-          <li>1 lowercase character {pwPropMet.lower ? "✅" : "❌"}</li>
-          <li>1 number {pwPropMet.number ? "✅" : "❌"}</li>
-          <li>1 special character {pwPropMet.special ? "✅" : "❌"}</li>
-        </ul>
+      <div id="passwordCheckContainer">
+        <span className="passwordRequirementMessage">
+          Password requires at least:
+        </span>
+        {Object.entries(pwPropMet).map(([prop, met]) => (
+          <div className="passwordRequirements" key={prop}>
+            <span>{prop}</span>
+            <span>{met ? "✔" : <b>✗</b>}</span>
+          </div>
+        ))}
       </div>
     </React.Fragment>
   );

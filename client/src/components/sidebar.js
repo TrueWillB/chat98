@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import ProfilePics from "./profilePics";
 import FriendsList from "./friendsList";
-import { X, UserPlus } from "feather-icons-react";
-import Button from "@mui/material/Button";
 
 const Sidebar = () => {
   const [showBackButton, setShowBackButton] = useState(false);
@@ -41,18 +39,22 @@ const Sidebar = () => {
   return (
     <div id="sidebarContainer">
       <div id="sidebarHeader" className="chatHeader">
-        <button className="homeButtons" id="sidebarXButton">
+        <button
+          className="homeButtons"
+          id="sidebarBackButton"
+          onClick={handleBackButtonClick}
+        >
           ×
         </button>
-        <p id="chatHeaderText">Friends</p>
+        <button
+          className="sidebar-search-new-friends-button"
+          variant="contained"
+          onClick={showAllUsersHandler}
+        >
+          Friends
+        </button>
       </div>
-      {showBackButton && (
-        <div className="searchbarContainer">
-          <button className="sidebarBackButton" onClick={handleBackButtonClick}>
-            <X size={16} />
-          </button>
-        </div>
-      )}
+      {showBackButton && <div className="searchbarContainer"></div>}
       {!showBackButton && (
         <div>
           <button
@@ -60,13 +62,13 @@ const Sidebar = () => {
             variant="contained"
             onClick={showAllUsersHandler}
           >
-            SEARCH
+            Users Search
           </button>
           <button
             className="sidebarFriendButton"
             onClick={showFriendsListHandler}
           >
-            <UserPlus stroke="gray" size={25} />
+            Friends
           </button>
         </div>
       )}
