@@ -31,9 +31,9 @@ const FriendsList = () => {
 
   const handleAddFriend = async (friendIdToAdd) => {
     try {
-      console.log("clicked friend add button");
-      console.log("friendIdToAdd: ", friendIdToAdd);
-      console.log("currentUserId: ", currentUserId);
+      // console.log("clicked friend add button");
+      // console.log("friendIdToAdd: ", friendIdToAdd);
+      // console.log("currentUserId: ", currentUserId);
       await sendFriendRequest({
         variables: { senderId: await data.user._id, receiverId: friendIdToAdd },
       });
