@@ -23,6 +23,11 @@ const Login = () => {
   const [addUser, { error: addUserError, data: addUserData }] =
     useMutation(ADD_USER);
 
+  const loginErrorText = loginError ? "Invalid Credentials" : "";
+  const addUserErrorText = addUserError
+    ? "Plese enter valid email and password"
+    : "";
+
   //   handldSignupChange will allow us to update the state of the signup form
   const handleSignupChange = (event) => {
     const { name, value } = event.target;
@@ -166,6 +171,7 @@ const Login = () => {
                         onChange={handleLoginChange}
                       />
                     </div>
+                    {loginError && <div>{loginErrorText}</div>}
                     <div></div>
                   </div>
                 )}
@@ -221,8 +227,7 @@ const Login = () => {
                       />
                     </div>
                     <PassCheck value={signUpFormState.password} />
-                    {loginError && <div>{loginError.message}</div>}
-                    {addUserError && <div>{addUserError.message}</div>}
+                    {addUserError && <div>{addUserErrorText}</div>}
                   </div>
                 )}
               </Box>
