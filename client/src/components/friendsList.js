@@ -55,11 +55,11 @@ const FriendsList = () => {
   };
 
   const handleStartChat = async (friendId) => {
-    setSelectedFriendId(friendId);
     try {
       await startChat({
         variables: { user1Id: profile.data._id, user2Id: friendId },
       });
+      setSelectedFriendId(friendId);
       alert("Chat started!");
     } catch (err) {
       alert(err);

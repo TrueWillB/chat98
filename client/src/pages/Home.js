@@ -18,7 +18,10 @@ export default function Home() {
   const [chat, setChat] = useState(null);
   const [chatId, setChatId] = useState(null);
   const { selectedFriendId } = useContext(SelectedFriendContext);
+  const chatRef = useRef(null);
+
   const profile = auth.getProfile();
+
   const [sendMessageMutation] = useMutation(SEND_MESSAGE);
   const { loading, error, data } = useQuery(QUERY_USER_CHATS, {
     variables: { userId: profile.data._id, friendId: selectedFriendId },
@@ -31,28 +34,29 @@ export default function Home() {
   // hooks for socket instance, current message input, and array of messages
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const chatScreenRef = useRef(null);
+
   // effect hook to set up socket connection and message event listener
   useEffect(() => {
     // create socket connection to server
-    const newSocket = io.connect("http://localhost:3001");
+    // const newSocket = io.connect("http://localhost:3001");
 
-    // const newSocket = io();
+    const newSocket = io();
 
     setSocket(newSocket);
     //listens for message event from server
     newSocket.on("message", (message) => {
       setChat((chat) => ({
         ...chat,
-        messages: [
-          ...chat.messages,
-          {
-            senderId: message.senderId._id,
-            receiverId: message.receiverId._id,
-            content: message.content,
-          },
-        ],
+        messages: chat
+          ? [
+              ...chat.messages,
+              {
+                senderId: message.senderId._id,
+                receiverId: message.receiverId._id,
+                content: message.content,
+              },
+            ]
+          : [],
       }));
     });
 
@@ -76,6 +80,10 @@ export default function Home() {
     }
   }, [loading, data]);
 
+  useEffect(() => {
+    chatRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chat]);
+
   const handleToggleGiphySearch = () => {
     setShowGiphySearch((prevShow) => !prevShow);
   };
@@ -94,12 +102,6 @@ export default function Home() {
   const sendMessage = async (e) => {
     e.preventDefault();
     if (socket) {
-      socket.emit("message", {
-        senderId: profile.data._id,
-        receiverId: selectedFriendId,
-        content: message,
-      });
-
       try {
         const { data } = await sendMessageMutation({
           variables: {
@@ -130,13 +132,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    const chatScreenElement = chatScreenRef.current;
-    if (chatScreenElement) {
-      chatScreenElement.scrollTop = chatScreenElement.scrollHeight;
-    }
-  }, [messages]);
-
   const handleEmojiButtonClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
@@ -153,8 +148,8 @@ export default function Home() {
         </Button>
         <p id="chatHeaderText">Chat with (Username)</p>
       </div>
-      <div id="chatScreen" ref={chatScreenRef}>
-        {messages.map((message, i) => (
+      <div id="chatScreen">
+        {chat?.messages?.map((message, i) => (
           <div
             key={i}
             id={
@@ -164,6 +159,7 @@ export default function Home() {
             }
           >
             <p>{message.content}</p>
+            <div ref={chatRef} />
           </div>
         ))}
       </div>
