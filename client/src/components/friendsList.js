@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { UserPlus, UserMinus, User } from "feather-icons-react";
+import { UserPlus, UserMinus, User, UserCheck } from "feather-icons-react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER, QUERY_USERS } from "../utils/queries";
 import {
@@ -17,6 +17,9 @@ const FriendsList = () => {
     variables: { username: profile.data.username },
   });
 
+  //id of the current user
+  const currentUserId = data?.user?._id;
+
   const {
     loading: loadingAllUsers,
     error: errorAllUsers,
@@ -28,8 +31,11 @@ const FriendsList = () => {
 
   const handleAddFriend = async (friendIdToAdd) => {
     try {
+      console.log("clicked friend add button");
+      console.log("friendIdToAdd: ", friendIdToAdd);
+      console.log("currentUserId: ", currentUserId);
       await sendFriendRequest({
-        variables: { senderId: data.user._id, receiverId: friendIdToAdd },
+        variables: { senderId: await data.user._id, receiverId: friendIdToAdd },
       });
       console.log("Friend request sent!");
       refetch();
@@ -67,6 +73,8 @@ const FriendsList = () => {
 
   if (loading || loadingAllUsers) return <p>Loading...</p>;
   if (error || errorAllUsers) return <p>Error :</p>;
+
+  const listForFilter = allUserData?.users || [];
 
   return (
     <div>
@@ -114,19 +122,37 @@ const FriendsList = () => {
             onChange={(e) => setUserSearch(e.target.value)}
             className="sidebarSearch"
           />
-          {allUserData.users
+          {listForFilter
             .filter((user) =>
               user.username.toLowerCase().includes(userSearch.toLowerCase())
             )
-            .map((user) => (
-              <div key={user._id} className="userList">
+            .map((user, index) => (
+              <div className="userList" key={user._id}>
                 <span className="username">{user.username}</span>
-                <button
-                  className="friendButton"
-                  onClick={() => handleAddFriend(user._id)}
-                >
-                  <UserPlus stroke="blue" size={16} />
-                </button>
+                {/* This is a conditional render to prevent button from loading if they are already a pending friend */}
+                {user.pendingFriends
+                  .map((user) => user._id)
+                  .includes(currentUserId) ? (
+                  <button className="friendButton">
+                    <User stroke="Gray" size={16} />
+                  </button>
+                ) : user.friends
+                    .map((friend) => friend._id)
+                    .includes(currentUserId) ? (
+                  <button
+                    className="friendButton"
+                    onClick={() => console.log("clicked remove friend button")}
+                  >
+                    <UserCheck stroke="Green" size={16} />
+                  </button>
+                ) : (
+                  <button
+                    className="friendButton"
+                    onClick={() => handleAddFriend(user._id)}
+                  >
+                    <UserPlus stroke="Blue" size={16} />
+                  </button>
+                )}
               </div>
             ))}
         </div>
@@ -134,5 +160,4 @@ const FriendsList = () => {
     </div>
   );
 };
-
 export default FriendsList;
