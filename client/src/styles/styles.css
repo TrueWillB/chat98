@@ -53,7 +53,7 @@ body {
   box-shadow: inset 1px -1px 0px 3px #b2b0b0db;
 }
 
-.homeButtons, .internalModalButtons, #sidebarUserButtons {
+.homeButtons, .internalModalButtons, #sidebarUserButtons, .sidebarHeaderButtons, .avatarButtons {
   align-items: center;
   appearance: none;
   background-color: #e9e9e9;
@@ -85,7 +85,7 @@ body {
   font-size: 18px;
 }
 
-.homeButtons:focus, .internalModalButtons:focus {
+.homeButtons:focus, .internalModalButtons:focus, #sidebarUserButtons:focus {
   outline: 1px dotted #000000;
   outline-offset: -4px;
 }
@@ -93,10 +93,6 @@ body {
 .homeButtons:hover {
   transform: translateY(-2px);
 }
-
-
-
-/* ----------- MODAL ------------- */
 
 /* affects buttons in toolbar */
 #modalContainer {
@@ -203,37 +199,17 @@ body {
   margin-right: 5%;
 }
 
-
 /* rename to chatAndSidebarContainer! */
 #homeSidebarContainer {
   display: flex;
   justify-content: space-between;
   margin-top: 2%;
   width: 100%;
-  height: 90%;
+  height: 100vh;
 }
 
 .userSearch {
   border-radius: 0%;
-}
-
-#chatContainer {
-  height: 70vh;
-  width: 100%;
-  margin-left: 3%;
-}
-
-.chatHeader {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  font-family: monospace;
-  margin: 0%;
-  padding: 1%;
-  background-color: #c0c0c0;
-  text-shadow: 1px 1px 1px #ffffff;
-  box-shadow: inset -1px -2px #b4b2b2, inset 1px 3px #ebebeb,
-    inset -2px -2px grey, inset 2px 2px #dfdfdf;
 }
 
 .userList {
@@ -242,7 +218,25 @@ body {
   text-shadow: 1px 1px 1px #ffffff;
 }
 
-#chatContainer:hover #chatHeader {
+#chatContainer {
+  height: 70vh;
+  width: 100%;
+  margin-left: 3%;
+}
+
+.chatAndSidebarHeader {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  font-family: monospace;
+  margin: 0%;
+  background-color: #c0c0c0;
+  text-shadow: 1px 1px 1px #ffffff;
+  box-shadow: inset -1px -2px #b4b2b2, inset 1px 3px #ebebeb,
+    inset -2px -2px grey, inset 2px 2px #dfdfdf;
+}
+
+.chatAndSidebarHeader:hover, #chatHeader {
   background-color: #bbbbbb;
   text-shadow: 1px 1px 1px #ffffff;
   box-shadow: inset -1px -2px #abaaaa, inset 1px 3px #e0e0e0,
@@ -250,12 +244,7 @@ body {
 }
 
 #chatHeaderText {
-  margin: 0%;
-}
-
-#chatXButton {
-  height: 10%;
-  width: 1%;
+  margin: 0.5%;
 }
 
 #chatScreen {
@@ -274,7 +263,7 @@ body {
   background-color: #ffffff;
   border-bottom: 4px solid #dedede;
   color: #454545;
-  font-family: "JetBrains Mono", monospace;
+  font-family: monospace;
   text-shadow: 1px 1px 1px #ffffff;
   text-align: left;
   max-width: 80%;
@@ -287,17 +276,20 @@ body {
 
 #receivedChat {
   display: flex;
-  flex-direction: reverse;
-  background-color: #daeeff;
-  color: #1a4d79;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  background-color: #f2d7f1;
+  border-bottom: 4px solid #dedede;
+  color: #8f4c8d;
+  font-family: monospace;
+  text-shadow: 1px 1px 1px #ffffff;
+  text-align: left;
   max-width: 80%;
   width: fit-content;
   height: fit-content;
-  text-align: left;
   overflow: hidden;
-  border-radius: 20px;
-  padding: 1.5%;
-  margin: 2%;
+  padding: 1%;
+  margin: 1.5%;
 }
 
 #fromMessageText {
@@ -345,14 +337,36 @@ body {
   background-color: #e9e9e9;
   margin-right: 3%;
   margin-left: 3%;
-  height: 100vh;
+  height: 98%;
   width: 50%;
 }
 
-#sidebarHeader {
-  display: flex;
-  flex-direction: flex-start;
-  align-items: center;
+.sidebarHeaderButtons {
+  height: 4.5vh;
+}
+
+.sidebarSearch {
+  background-color: #f6f6f6;
+  border-width: 0;
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 3px #fff, inset -2px -2px grey,
+      inset 2px 2px #dfdfdf;
+  font-family: monospace;
+  font-size: 16px;
+  padding: 1%;
+  margin-top: 1%;
+  margin-bottom: 3%;
+  height: 3rem;
+  width: 50%;
+}
+
+.sidebarSearch:focus {
+  outline: 1px dotted black;
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 3px #fff, inset -2px -2px grey,
+    inset 2px 2px #dfdfdf;
+}
+
+.sidebarSearch:active {
+  outline: none;
 }
 
 #friendsAndUsersContainer {
@@ -387,21 +401,8 @@ body {
   color: rgb(160, 160, 160);
 }
 
-.sidebarBackButton {
-  height: 5%;
-  width: 1%;
-}
-
-.sidebarFriendButton {
-  background-color: transparent;
-  float: right;
-  border: none;
-  margin: 4px 2px;
-}
-
 .sidebarTabs-container {
   display: flex;
-
 }
 
 .sidebarTabs {
@@ -436,6 +437,18 @@ body {
   border-bottom: 4px solid #c0c0c0;
 }
 
+.avatarButtons {
+  height: 17%;
+  margin-top: 1%;
+  margin-bottom: 8%;
+  background-color: #d3d3d3;
+  box-shadow: inset -1px -1px #8b1993, inset 1px 3px #fff, inset -2px -2px grey,
+    inset 2px 2px #dfdfdf;
+  color: #3c3c3c;
+  text-shadow: 1px 1px 1px #ffffff;
+  font-size: 18px;
+}
+
 /* temporary */
 input[type="file"] {
   margin-top: 10px;
@@ -451,8 +464,6 @@ input[type="file"] {
   border: none;
   margin: 1%;
 }
-
-
 
 .gifSearchContainer {
   border: 3px solid #dedede;

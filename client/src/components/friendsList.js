@@ -55,11 +55,11 @@ const FriendsList = () => {
   };
 
   const handleStartChat = async (friendId) => {
+    setSelectedFriendId(friendId);
     try {
       await startChat({
         variables: { user1Id: profile.data._id, user2Id: friendId },
       });
-      setSelectedFriendId(friendId);
       alert("Chat started!");
     } catch (err) {
       alert(err);
@@ -70,14 +70,23 @@ const FriendsList = () => {
   if (error || errorAllUsers) return <p>Error :</p>;
 
   return (
-    <React.Fragment>
-      <Tabs
-        value={tabValue}
-        onChange={(event, newValue) => setTabValue(newValue)}
-      >
-        <Tab label="Friends Search" />
-        <Tab label="User Search" />
-      </Tabs>
+    <div>
+      <div id="friendsAndUsersContainer">
+        <button
+          id="sidebarUserButtons"
+          className={`sidebarTabs ${tabValue === 1 ? "active" : ""}`}
+          onClick={() => setTabValue(1)}
+        >
+          Search Users
+        </button>
+        <button
+          id="sidebarUserButtons"
+          className={`sidebarTabs ${tabValue === 0 ? "active" : ""}`}
+          onClick={() => setTabValue(0)}
+        >
+          Your Friends
+        </button>
+      </div>
       {tabValue === 0 && (
         <div>
           {data?.user?.friends?.map((friend) => (
@@ -100,9 +109,11 @@ const FriendsList = () => {
       )}
       {tabValue === 1 && (
         <div>
-          <TextField
-            label="Search Usernames"
+          <input
+            type="text"
+            placeholder="Search Usernames"
             onChange={(e) => setUserSearch(e.target.value)}
+            className="sidebarSearch"
           />
           {allUserData.users
             .filter((user) =>
@@ -121,7 +132,7 @@ const FriendsList = () => {
             ))}
         </div>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 
