@@ -194,8 +194,15 @@ body {
 }
 
 #toolbarButtonsRight {
+  display: flex;
+  flex-direction: row;
   margin-right: 1%;
 }
+
+#homeButton {
+  margin-right: 5%;
+}
+
 
 /* rename to chatAndSidebarContainer! */
 #homeSidebarContainer {
