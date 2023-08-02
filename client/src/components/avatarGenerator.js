@@ -11,7 +11,7 @@ const AvatarGenerator = () => {
     try {
       console.log(event.target);
       await addAvatar({ variables: { avatar: event.target.id } });
-      window.location.replace("/#/home");
+      window.location.replace("/home");
     } catch (error) {
       console.error("Error adding avatar", error);
     }

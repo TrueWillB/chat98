@@ -19,13 +19,13 @@ const Toolbar = () => {
         <div></div>
       ) : (
         <div>
-          <Button className="homeButtons" component={Link} to="/#/home">
+          <Button className="homeButtons" component={Link} to="/home">
             Home
           </Button>
           <Button
             className="homeButtons"
             component={Link}
-            to="/#/friend-requests"
+            to="/friend-requests"
           >
             Requests
           </Button>

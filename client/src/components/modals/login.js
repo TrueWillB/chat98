@@ -56,7 +56,7 @@ const Login = () => {
 
       Auth.login(data.login.token);
       console.log("login success!");
-      window.location.replace("/#/home");
+      window.location.replace("/home");
     } catch (e) {
       console.error(e);
     }
@@ -72,7 +72,7 @@ const Login = () => {
       });
 
       Auth.login(data.addUser.token);
-      window.location.replace("/#/avatar-generator");
+      window.location.replace("/avatar-generator");
       console.log("login success!");
     } catch (e) {
       console.error(e);
