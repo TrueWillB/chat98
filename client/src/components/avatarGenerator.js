@@ -32,12 +32,16 @@ const AvatarGenerator = () => {
 
   return (
     <div>
-      <h1>Avatar Generator</h1>
-      <p>Kindly select an avatar that represents you best!</p>
+      <p id="avatarPickerMessage">Select an avatar that represents you!</p>
       <div style={styles.avatarContainer}>
         {Object.entries(avatars).map(([name, image], index) => (
           <div key={index}>
-            <img src={image} alt={name} style={styles.avatarImage} />
+            <img
+              class="avatarImages"
+              src={image}
+              alt={name}
+              style={styles.avatarImage}
+            />
             <Button
               id={name}
               class="avatarButtons"

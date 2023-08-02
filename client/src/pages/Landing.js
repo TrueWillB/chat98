@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Landing() {
-  return <img src="./Chat98Logo-lg.png" alt="landing page" />;
+  return <img id="landingImage" src="./Chat98Logo-lg.png" alt="landing page" />;
 }

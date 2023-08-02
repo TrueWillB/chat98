@@ -85,12 +85,12 @@ body {
   font-size: 18px;
 }
 
-.homeButtons:focus, .internalModalButtons:focus, #sidebarUserButtons:focus {
+.homeButtons:focus, .internalModalButtons:focus, #sidebarUserButtons:focus, .avatarButtons:focus {
   outline: 1px dotted #000000;
   outline-offset: -4px;
 }
 
-.homeButtons:hover {
+.homeButtons:hover, .avatarImages:hover {
   transform: translateY(-2px);
 }
 
@@ -449,6 +449,23 @@ body {
   font-size: 18px;
 }
 
+.avatarButtons:hover {
+  color: gray;
+  background-color: #dfdfdf;
+}
+
+.avatarImages {
+  border-bottom: 4px solid #b45fba;
+}
+
+#avatarPickerMessage {
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 4.5vh;
+  color: #ffd2ef;
+  text-shadow: 2px 2px 1px #8b5879;
+}
+
 /* temporary */
 input[type="file"] {
   margin-top: 10px;
@@ -485,4 +502,18 @@ input[type="file"] {
 .gifImg {
   width: 100%;
   height: auto;
+}
+
+#landingImage {
+  animation: bounce 0.9s infinite alternate cubic-bezier(.5, 0.05, 1, .5);
+}
+
+@keyframes bounce {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 100px, 0);
+  }
 }
