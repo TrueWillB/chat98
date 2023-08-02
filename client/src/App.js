@@ -60,7 +60,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route
-                path="/home"
+                path="/#/home"
                 element={
                   <div id="homeSidebarContainer">
                     <Home />
@@ -68,9 +68,9 @@ function App() {
                   </div>
                 }
               />
-              <Route path="/search" element={<UserSearch />} />
-              <Route path="/friend-requests" element={<FriendRequests />} />
-              <Route path="/avatar-generator" element={<AvatarGenerator />} />
+              <Route path="/#/search" element={<UserSearch />} />
+              <Route path="/#/friend-requests" element={<FriendRequests />} />
+              <Route path="/#/avatar-generator" element={<AvatarGenerator />} />
             </Routes>
           </Router>
         </ApolloProvider>
