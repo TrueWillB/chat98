@@ -79,19 +79,4 @@ function App() {
   );
 }
 
-{
-  /* <ApolloProvider client={client}>
-     <Router>
-       <div className="App">
-         <Routes>
-           <div style={{ display: "flex" }}>
-             <Route path="/" element={<Home />} />
-             <Route path="/profile" element={<ProfilePics />} />
-           </div>
-         </Routes>
-       </div>
-     </Router>
-   </ApolloProvider> */
-}
-
 export default App;
