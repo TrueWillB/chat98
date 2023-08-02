@@ -38,9 +38,9 @@ const Sidebar = () => {
   // will be replacing "userPlus" button with something nicer
   return (
     <div id="sidebarContainer">
-      <div id="sidebarHeader" className="chatHeader">
+      <div id="chatAndSidebarHeader" class="chatAndSidebarHeader">
         <button
-          className="homeButtons"
+          className="sidebarHeaderButtons"
           id="sidebarBackButton"
           onClick={handleBackButtonClick}
         >
@@ -48,7 +48,7 @@ const Sidebar = () => {
         </button>{" "}
         <div id="friendsAndUsersButtons">
           <button
-            class="homeButtons"
+            className="sidebarHeaderButtons"
             itemID="sidebarFriendButton"
             onClick={showFriendsListHandler}
           >

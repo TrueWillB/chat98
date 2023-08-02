@@ -157,9 +157,9 @@ export default function Home() {
 
   return (
     <div id="chatContainer">
-      <div id="chatHeader" class="chatHeader">
+      <div id="chatAndSidebarHeader" class="chatAndSidebarHeader">
         <Button
-          class="homeButtons"
+          class="sidebarHeaderButtons"
           id="chatXButton"
           onClick={() => console.log("Button clicked")}
         >

@@ -38,7 +38,11 @@ const AvatarGenerator = () => {
         {Object.entries(avatars).map(([name, image], index) => (
           <div key={index}>
             <img src={image} alt={name} style={styles.avatarImage} />
-            <Button id={name} onClick={handleAvatarSelection}>
+            <Button
+              id={name}
+              class="avatarButtons"
+              onClick={handleAvatarSelection}
+            >
               This Avatar is So Me!
             </Button>
           </div>
