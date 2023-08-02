@@ -220,6 +220,7 @@ const Login = () => {
                         onChange={handleSignupChange}
                       />
                     </div>
+                    <PassCheck value={signUpFormState.password} />
                     {loginError && <div>{loginError.message}</div>}
                     {addUserError && <div>{addUserError.message}</div>}
                   </div>

@@ -45,33 +45,19 @@ const Sidebar = () => {
           onClick={handleBackButtonClick}
         >
           ×
-        </button>
-        <button
-          className="sidebar-search-new-friends-button"
-          variant="contained"
-          onClick={showAllUsersHandler}
-        >
-          Friends
-        </button>
-      </div>
-      {showBackButton && <div className="searchbarContainer"></div>}
-      {!showBackButton && (
-        <div>
+        </button>{" "}
+        <div id="friendsAndUsersButtons">
           <button
-            className="sidebar-search-new-friends-button"
-            variant="contained"
-            onClick={showAllUsersHandler}
-          >
-            Users Search
-          </button>
-          <button
-            className="sidebarFriendButton"
+            class="homeButtons"
+            itemID="sidebarFriendButton"
             onClick={showFriendsListHandler}
           >
-            Friends
+            Start Chat
           </button>
-        </div>
-      )}
+        </div>{" "}
+      </div>
+      {showBackButton && <div className="searchbarContainer"></div>}
+      {!showBackButton && <div></div>}
 
       {showProfilePics ? <ProfilePics /> : <FriendsList props={showAllUsers} />}
     </div>

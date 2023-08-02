@@ -16,10 +16,10 @@ const Toolbar = () => {
         <Button class="homeButtons">Time Travel</Button>
       </div>
       <div id="toolbarButtonsRight">
-        <Button className="homeButtons" component={Link} to="/home">
+        <Button class="homeButtons" id="homeButton" component={Link} to="/home">
           Home
         </Button>
-        <Button className="homeButtons" component={Link} to="/friend-requests">
+        <Button class="homeButtons" component={Link} to="/friend-requests">
           Requests
         </Button>
       </div>
