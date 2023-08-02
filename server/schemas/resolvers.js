@@ -33,11 +33,11 @@ const resolvers = {
         throw err;
       }
     },
-    // me: async (parent, args, context) => {
-    //   return await User.findById(context.user._id)
-    //     .populate("friends")
-    //     .populate("pendingFriends");
-    // },
+    me: async (parent, args, context) => {
+      return await User.findById(context.user._id)
+        .populate("friends")
+        .populate("pendingFriends");
+    },
   },
 
   Mutation: {
