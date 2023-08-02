@@ -51,7 +51,7 @@ const Login = () => {
 
       Auth.login(data.login.token);
       console.log("login success!");
-      handleClose();
+      window.location.replace("/home");
     } catch (e) {
       console.error(e);
     }
