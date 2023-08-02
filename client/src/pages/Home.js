@@ -38,13 +38,17 @@ export default function Home() {
   // effect hook to set up socket connection and message event listener
   useEffect(() => {
     // create socket connection to server
-    const newSocket = io.connect("http://localhost:3001");
+    // const newSocket = io.connect("http://localhost:3001");
 
-    // const newSocket = io();
+    const newSocket = io();
 
     setSocket(newSocket);
     //listens for message event from server
     newSocket.on("message", (message) => {
+      //this will skip if the message was sent by current user (avoids duplicate msg)
+      if (message.senderId === profile.data._id) {
+        return;
+      }
       setChat((chat) => ({
         ...chat,
         messages: chat
@@ -61,7 +65,7 @@ export default function Home() {
     });
 
     return () => newSocket.close();
-  }, [setSocket]);
+  }, [setSocket, profile.data._id]);
 
   useEffect(() => {
     setChat(null);
@@ -112,6 +116,11 @@ export default function Home() {
         });
 
         if (data) {
+          socket.emit("message", {
+            senderId: profile.data._id,
+            receiverId: selectedFriendId,
+            content: message,
+          });
           // update chat in state
           setChat((chat) => ({
             ...chat,

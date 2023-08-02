@@ -40,8 +40,8 @@ const startApolloServer = async () => {
     const socketServer = new Server(httpServer, {
       //allows server-side on port 3001 to accept connections from client-side on port 3000.
       cors: {
-        origin: "http://localhost:3000",
-        // origin: "*",
+        // origin: "http://localhost:3000",
+        origin: "*",
 
         methods: ["GET", "POST"],
       },
