@@ -1,13 +1,11 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import io from "socket.io-client";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import GiphySearchBar from "../components/giphySearchBar";
 import EmojiPicker from "emoji-picker-react"; // remember there's a dark theme for emmoji picker!
 
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_USER_CHATS } from "../utils/queries";
+import { QUERY_USER_CHATS, QUERY_USER_BY_ID } from "../utils/queries";
 import { SEND_MESSAGE } from "../utils/mutations";
 import auth from "../utils/auth";
 import { SelectedFriendContext } from "../components/SelectedFriendContext";
@@ -17,6 +15,7 @@ import { SelectedFriendContext } from "../components/SelectedFriendContext";
 export default function Home() {
   const [chat, setChat] = useState(null);
   const [chatId, setChatId] = useState(null);
+  const [friendUsername, setFriendUsername] = useState(null);
   const { selectedFriendId } = useContext(SelectedFriendContext);
   const chatRef = useRef(null);
 
@@ -27,6 +26,17 @@ export default function Home() {
     variables: { userId: profile.data._id, friendId: selectedFriendId },
     skip: !selectedFriendId,
   });
+
+  const { data: friendData } = useQuery(QUERY_USER_BY_ID, {
+    variables: { userID: selectedFriendId },
+    skip: !selectedFriendId,
+  });
+
+  useEffect(() => {
+    if (friendData) {
+      setFriendUsername(friendData.userByID.username);
+    }
+  }, [friendData]);
 
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showGiphySearch, setShowGiphySearch] = useState(false);
@@ -155,7 +165,11 @@ export default function Home() {
         >
           ×
         </Button>
-        <p id="chatHeaderText">Chat with (Username)</p>
+        {!friendData ? (
+          <p id="chatHeaderText">Select a friend to chat with</p>
+        ) : (
+          <p id="chatHeaderText">Chat with {friendUsername}</p>
+        )}
       </div>
       <div id="chatScreen">
         {chat?.messages?.map((message, i) => (
