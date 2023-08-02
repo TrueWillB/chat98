@@ -6,15 +6,18 @@ export const QUERY_USERS = gql`
       _id
       username
       email
+      avatar
       friends {
         _id
         username
         email
+        avatar
       }
       pendingFriends {
         _id
         username
         email
+        avatar
       }
     }
   }
@@ -26,15 +29,18 @@ export const QUERY_USER = gql`
       _id
       username
       email
+      avatar
       friends {
         _id
         username
         email
+        avatar
       }
       pendingFriends {
         _id
         username
         email
+        avatar
       }
     }
   }
@@ -46,6 +52,7 @@ export const QUERY_USER_BY_ID = gql`
       _id
       username
       email
+      avatar
       friends {
         _id
         username
@@ -75,6 +82,29 @@ export const QUERY_USER_CHATS = gql`
           _id
         }
         content
+      }
+    }
+  }
+`;
+
+export const QUERY_ME = gql`
+  query me {
+    me {
+      _id
+      username
+      email
+      avatar
+      friends {
+        _id
+        username
+        email
+        avatar
+      }
+      pendingFriends {
+        _id
+        username
+        email
+        avatar
       }
     }
   }
