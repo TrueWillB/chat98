@@ -4,7 +4,7 @@ Welcome to Chat 98! Bringing back the good ol' days of IM chat in a madern sense
 
 ## Installation
 
-Navigate to https://chat98-a21833346cf4.herokuapp.com/ 
+Navigate to [Chat 98](https://chat98-a21833346cf4.herokuapp.com/). 
 
 To download: click on the download button in the upper right hand corner. 
 <!-- insert close up screenshot of REACT download button -->
