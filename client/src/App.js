@@ -19,9 +19,9 @@ import FriendRequests from "./components/FriendRequests";
 // import AddAvatar from "./components/addAvatar";
 import AvatarGenerator from "./components/avatarGenerator";
 
-// const httpLink = createHttpLink({
-//   uri: "http://localhost:3001/graphql",
-// });
+//const httpLink = createHttpLink({
+//  uri: "http://localhost:3001/graphql",
+//});
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -46,11 +46,9 @@ const client = new ApolloClient({
 function App() {
   return (
     <div
+      id="backgroundImage"
       style={{
         backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        minHeight: "100vh",
       }}
     >
       <SelectedFriendProvider>
