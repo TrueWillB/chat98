@@ -22,7 +22,7 @@ Chat 98 was made with love by:
 [Andrick Siegmund](https://github.com/Paulsig007),
 [Jordan Olguin](https://github.com/jordanolguin),
 [Madeline Moore](https://github.com/MsJamesM),
-[Derel Szczepanik](https://github.com/Lone1ne), and
+[Derek Szczepanik](https://github.com/Lone1ne), and
 [Will Brown](https://github.com/TrueWillB).
 
 ## Contributing
