@@ -74,7 +74,8 @@ const FriendsList = () => {
   if (loading || loadingAllUsers) return <p>Loading...</p>;
   if (error || errorAllUsers) return <p>Error :</p>;
 
-  const listForFilter = allUserData?.users || [];
+  const listForFilter =
+    allUserData?.users.filter((user) => user._id != currentUserId) || [];
 
   return (
     <div>
