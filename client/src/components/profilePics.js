@@ -23,11 +23,13 @@ const FriendsList = () => {
 
   const { data, loading, error } = useQuery(QUERY_ME);
   if (loading) {
-    return <div>Loading...</div>;
+    return <div style={{ fontFamily: "monospace" }}>Loading...</div>;
   }
   if (error) {
     console.log(JSON.stringify(error));
-    return <div>Something went wrong...</div>;
+    return (
+      <div style={{ fontFamily: "monospace" }}>Something went wrong...</div>
+    );
   }
   const user = data?.me || {};
   console.log(data);
