@@ -2,15 +2,13 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import io from "socket.io-client";
 import Button from "@mui/material/Button";
 import GiphySearchBar from "../components/giphySearchBar";
-import EmojiPicker from "emoji-picker-react"; // remember there's a dark theme for emmoji picker!
+/*import EmojiPicker from "emoji-picker-react";*/
 
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER_CHATS, QUERY_USER_BY_ID } from "../utils/queries";
 import { SEND_MESSAGE } from "../utils/mutations";
 import auth from "../utils/auth";
 import { SelectedFriendContext } from "../components/SelectedFriendContext";
-
-// Madeline to do: add logic so chat screen automatically scrolls/jumps down when new message is sent
 
 export default function Home() {
   const [chat, setChat] = useState(null);
@@ -38,7 +36,7 @@ export default function Home() {
     }
   }, [friendData]);
 
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  /* const [showEmojiPicker, setShowEmojiPicker] = useState(false); */
   const [showGiphySearch, setShowGiphySearch] = useState(false);
 
   // hooks for socket instance, current message input, and array of messages
@@ -150,21 +148,21 @@ export default function Home() {
       }
     }
   };
-
+  /*
   const handleEmojiButtonClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
-
+*/
   return (
     <div id="chatContainer">
-      <div id="chatAndSidebarHeader" class="chatAndSidebarHeader">
-        <Button
-          class="sidebarHeaderButtons"
+      <div id="chatAndSidebarHeader" className="chatAndSidebarHeader">
+        <button
+          className="sidebarHeaderButtons"
           id="chatXButton"
           onClick={() => console.log("Button clicked")}
         >
           ×
-        </Button>
+        </button>
         {!friendData ? (
           <p id="chatHeaderText">Select a friend to chat with</p>
         ) : (
@@ -192,34 +190,20 @@ export default function Home() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <div id="textareaSendButton">
-          <Button class="homeButtons" onClick={sendMessage}>
+        <div id="textareaButtons">
+          <button className="homeButtons" id="sendButton" onClick={sendMessage}>
             Send
-          </Button>
-          <div>
-            {" "}
-            <div id="textareaButtons">
-              <button class="homeButtons" onClick={handleEmojiButtonClick}>
-                Emoji
-              </button>
-              {showEmojiPicker && (
-                <div
-                  className="emojiPickerContainer"
-                  style={{ marginBottom: 1 }}
-                >
-                  <EmojiPicker height={400} width={500} />
-                </div>
-              )}
-            </div>
-            <button class="homeButtons" onClick={handleToggleGiphySearch}>
-              GIFs
-            </button>
-            {showGiphySearch && (
-              <GiphySearchBar onSelectGif={handleSelectGif} />
-            )}
-          </div>
+          </button>
+          <button className="homeButtons" onClick={handleToggleGiphySearch}>
+            GIFs
+          </button>
         </div>
       </div>
+      {showGiphySearch && (
+        <div id="gifSearchContainer" className="gifSearchContainer">
+          <GiphySearchBar onSelectGif={handleSelectGif} />
+        </div>
+      )}
     </div>
   );
 }

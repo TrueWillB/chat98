@@ -49,22 +49,34 @@ const FriendRequests = () => {
 
   return (
     <div>
-      <button onClick={handleBackButtonClick}>Back</button>
-      <h2>Friend Requests</h2>
+      <button
+        class="homeButtons"
+        id="friendRequestButtons"
+        onClick={handleBackButtonClick}
+      >
+        Back
+      </button>
+      <h2 id="friendsRequestPageHeader">Friend Requests</h2>
       {data?.user.pendingFriends.length > 0 ? (
         data.user.pendingFriends.map((friend) => (
           <div key={friend._id}>
             <p>{friend.username} sent you a friend request!</p>
-            <button onClick={() => handleApproveFriend(friend._id)}>
+            <button
+              id="friendRequestPageButtons"
+              onClick={() => handleApproveFriend(friend._id)}
+            >
               Approve
             </button>
-            <button onClick={() => handleRejectFriend(friend._id)}>
+            <button
+              id="friendRequestPageButtons"
+              onClick={() => handleRejectFriend(friend._id)}
+            >
               Reject
             </button>
           </div>
         ))
       ) : (
-        <p>No pending friend requests</p>
+        <p id="friendRequestStatus">No pending friend requests</p>
       )}
     </div>
   );
