@@ -326,6 +326,10 @@ body {
   display: inline;
 }
 
+#sendButton {
+  margin-bottom: 10%;
+}
+
 #chatTextarea {
   resize: none;
   outline: none;
@@ -382,6 +386,7 @@ body {
 #friendsAndUsersContainer {
   display: flex;
   justify-content: center;
+  overflow: auto;
 }
 
 #sidebarUserButtons {
@@ -468,7 +473,7 @@ body {
   border-bottom: 4px solid #b45fba;
 }
 
-#avatarPickerMessage {
+#avatarPickerMessage, #friendsRequestPageHeader  {
   font-family: monospace;
   font-weight: bold;
   font-size: 4.5vh;
@@ -492,8 +497,14 @@ input[type="file"] {
   margin: 1%;
 }
 
+#gifSearchContainer {
+  position: absolute;
+  width: 46rem;
+  right: 47%;
+  top: 80%;
+}
+
 .gifSearchContainer {
-  border: 3px solid #dedede;
   background-color: #ffffff;
 }
 
@@ -504,14 +515,26 @@ input[type="file"] {
 }
 
 .gifItem {
-  flex: 0 0 calc(33.33% - 10px);
-  margin: 5px;
+  flex: 0 0 calc(45.33% - 10px);
+  margin: 2%;
   list-style: none;
 }
 
 .gifImg {
   width: 100%;
   height: auto;
+}
+
+#sidebarSearchGif {
+  background-color: white;
+  box-shadow: inset -1px -1px #c9c9c9, inset 1px 3px #fff, inset -2px -2px rgb(219, 219, 219),
+      inset 2px 2px #dfdfdf;
+}
+
+#sidebarSearchButton {
+  background-color: white;
+  box-shadow: inset -1px -1px #c9c9c9, inset 1px 3px #fff, inset -2px -2px rgb(219, 219, 219),
+      inset 2px 2px #dfdfdf;
 }
 
 #landingImage {
@@ -526,4 +549,16 @@ input[type="file"] {
   to {
     transform: translate3d(0, 100px, 0);
   }
+}
+
+#friendRequestButtons {
+  margin: 3%;
+}
+
+#friendRequestStatus {
+    font-family: monospace;
+      font-weight: bold;
+      font-size: 3.5vh;
+      color: #ffd2ef;
+      text-shadow: 2px 2px 1px #8b5879;
 }

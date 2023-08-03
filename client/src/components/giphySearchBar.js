@@ -21,14 +21,15 @@ function GiphySearchBar(props) {
     <div
       className="gifSearchContainer"
       style={{
-        width: "18.75rem",
-        height: "8.5rem",
+        height: "13rem",
         overflow: "hidden",
         overflowY: "scroll",
       }}
     >
       <div id="searchBar">
         <input
+          class="sidebarSearch"
+          id="sidebarSearchGif"
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -36,7 +37,13 @@ function GiphySearchBar(props) {
         />
       </div>
       <div className="card-container">
-        <button onClick={handleSearch}>Search</button>
+        <button
+          className="homeButtons"
+          id="sidebarSearchButton"
+          onClick={handleSearch}
+        >
+          Search
+        </button>
         <ResultList results={results} onSelectGif={handleSelectGif} />
       </div>
     </div>

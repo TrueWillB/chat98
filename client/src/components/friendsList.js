@@ -95,7 +95,7 @@ const FriendsList = () => {
         </button>
       </div>
       {tabValue === 0 && (
-        <div>
+        <div id="friendsListPopulate">
           {data?.user?.friends?.map((friend) => (
             <div key={friend._id} className="userList">
               <span
